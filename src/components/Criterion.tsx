@@ -28,7 +28,7 @@ export default class Criterion extends React.Component<ICriterionProp, ICriterio
 
   public render() {
     return (
-      <div>
+      <div className="flex-container flex-align-items-center">
         <label>{this.props.metaDatum.name}</label>
         { Object.keys(this.state.weights).map((d, i) => 
               <div key ={i}>
