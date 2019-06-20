@@ -1,0 +1,76 @@
+[
+    {
+        "name": "oem",
+        "values": [
+            "OEM3",
+            "OEM8",
+            "OEM23",
+            "OEM7",
+            "OEM15",
+            "null",
+            "OEM4",
+            "OEM13",
+            "OEM6",
+            "OEM12",
+            "OEM1",
+            "OEM14",
+            "OEM9",
+            "OEM10"
+        ]
+    },
+    {
+        "name": "nand_cell",
+        "values": [
+            "NANDA4",
+            "NANDA1",
+            "NANDA2"
+        ]
+    },
+    {
+        "name": "form_factor",
+        "values": [
+            "NANDC2",
+            "NANDC1"
+        ]
+    },
+    {
+        "name": "density",
+        "values": [
+            "NANDD5",
+            "NANDD6",
+            "NANDD4",
+            "NANDD1",
+            "NANDD2"
+        ]
+    },
+    {
+        "name": "nanddesign",
+        "values": [
+            "NANDB5",
+            "NANDB7",
+            "NANDB12",
+            "NANDB6",
+            "NANDB1"
+        ]
+    },
+    {
+        "name": "capacity",
+        "values": [
+            "NANDE20",
+            "NANDE2",
+            "NANDE27",
+            "NANDE29",
+            "NANDE32",
+            "NANDE26",
+            "NANDE25",
+            "NANDE13",
+            "NANDE30",
+            "NANDE24",
+            "NANDE21",
+            "NANDE33",
+            "NANDE31",
+            "NANDE10",
+            "NANDE15"
+        ]
+    }
+]
