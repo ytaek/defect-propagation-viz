@@ -31,3 +31,26 @@
     transform: rotate(360deg);
   }
 }
+
+
+.App-container{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+
+}
+
+.App-sidebar{
+  background:white;
+  overflow-y: auto;
+  min-width: 500px;
+}
+
+.App-main{
+  flex: 1;
+  background: #fafafa;
+  overflow-y: auto;
+}
