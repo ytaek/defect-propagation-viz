@@ -1,22 +1,24 @@
 import * as React from 'react';
 import './App.css';
-import SidePanel from './SidePanel';
 import DynamicQueryAndWeight from './DynamicQueryAndWeight';
 import { DataService } from './DataService';
+import CriterionListContainer from './containers/CriterionListContainer';
 
 class App extends React.Component {
 
-  private dataService = new DataService()
+  private dataService = new DataService();
 
   constructor(props: any){
     super(props);
   }
 
-  public render() {
+  render() {
+console.log("app", this.dataService.criteriaData);
+
     return (
       <div className="App-container">
         <div className="App-sidebar">
-          <SidePanel dataService = {this.dataService}/>
+          <CriterionListContainer criteriaData={this.dataService.criteriaData}/>
         </div>
         <div className="App-main">
           <DynamicQueryAndWeight/>
