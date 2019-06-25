@@ -1,6 +1,6 @@
 import * as React from 'react';
 import './App.css';
-import { DataService, ProjectInterface } from './DataService';
+import { DataService, ProjectInterface } from './services/DataService';
 import CriterionListContainer from './containers/CriterionListContainer';
 import ProjectListContainer from './containers/ProjectListContainer';
 

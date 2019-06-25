@@ -1,6 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { ProjectInterface } from 'src/DataService';
+import { ProjectInterface } from 'src/services/DataService';
 import { projectsActionCreators } from 'src/redux/modules/projects';
 import { bindActionCreators } from 'redux';
 import { StoreState } from 'src/redux/modules';

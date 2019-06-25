@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ProjectInterface } from "../DataService";
+import { ProjectInterface } from "../services/DataService";
 
 interface Props {
   project: ProjectInterface;

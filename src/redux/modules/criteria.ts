@@ -1,4 +1,4 @@
-import { CriterionInterface } from 'src/DataService';
+import { CriterionInterface } from 'src/services/DataService';
 
 // types
 export interface CriteriaState {

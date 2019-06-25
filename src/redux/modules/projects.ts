@@ -1,4 +1,4 @@
-import { ProjectInterface } from 'src/DataService';
+import { ProjectInterface } from 'src/services/DataService';
 
 // types
 export interface ProjectsState {

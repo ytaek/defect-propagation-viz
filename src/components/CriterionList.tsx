@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { CriterionInterface } from 'src/DataService';
+import { CriterionInterface } from 'src/services/DataService';
 import CriterionItem from './CriterionItem';
 
 interface Props {

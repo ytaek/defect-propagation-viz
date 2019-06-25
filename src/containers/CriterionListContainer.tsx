@@ -1,6 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { CriterionInterface } from "../DataService";
+import { CriterionInterface } from "../services/DataService";
 import { StoreState } from '../redux/modules';
 import { actionCreators } from 'src/redux/modules/criteria';
 import { bindActionCreators } from 'redux';

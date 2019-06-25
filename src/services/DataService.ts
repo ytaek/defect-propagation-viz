@@ -40,7 +40,7 @@ export class DataService {
   private _criteriaData: CriterionInterface[];
 
   constructor() {
-    const metaData = require('./data/meta.json');
+    const metaData = require('../data/meta.json');
 
     this._criteriaData = metaData.map( (d: MetaDatumInterface) => {
       const cValues: CriterionValueInterface[] = 

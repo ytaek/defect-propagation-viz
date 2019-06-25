@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ProjectInterface } from 'src/DataService';
+import { ProjectInterface } from 'src/services/DataService';
 import ProjectItem from './ProjectItem';
 
 interface Props {
