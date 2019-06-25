@@ -14,6 +14,28 @@ export interface CriterionInterface {
   weight: number;
 }
 
+export interface ProjectInterface {
+  code: string;
+  score: number;
+  isPropCandidate: boolean;
+  attributes: any;
+}
+
+export interface ProjectAttributesInterface {
+  product: string;
+  // productApply: string;
+  // imsProjectName: string;
+  // parentProjectCode: string;
+  oem: string;
+  // FWName: string;
+  capacity: string;
+  density: string;
+  formFactor: string;
+  nandCell: string;
+  nandDesign: string;
+}
+
+
 export class DataService {
   private _criteriaData: CriterionInterface[];
 

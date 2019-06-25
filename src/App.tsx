@@ -1,8 +1,8 @@
 import * as React from 'react';
 import './App.css';
-import DynamicQueryAndWeight from './DynamicQueryAndWeight';
-import { DataService } from './DataService';
+import { DataService, ProjectInterface } from './DataService';
 import CriterionListContainer from './containers/CriterionListContainer';
+import ProjectListContainer from './containers/ProjectListContainer';
 
 class App extends React.Component {
 
@@ -15,13 +15,18 @@ class App extends React.Component {
   render() {
 console.log("app", this.dataService.criteriaData);
 
+    const t: ProjectInterface = {
+      code:"1234", score:0, isPropCandidate:false, 
+      attributes: undefined 
+    };
+console.log("t", t);
     return (
       <div className="App-container">
         <div className="App-sidebar">
           <CriterionListContainer criteriaData={this.dataService.criteriaData}/>
         </div>
         <div className="App-main">
-          <DynamicQueryAndWeight/>
+          <ProjectListContainer projectsData={[t]} />
         </div>
       </div>
     );
