@@ -1,5 +1,9 @@
 import * as React from "react";
-import { CriterionInterface, CriterionValueInterface } from "../services/DataService";
+import { Col, Row } from "react-bootstrap";
+import {
+  CriterionInterface,
+  CriterionValueInterface
+} from "../services/DataService";
 
 interface Props {
   criterion: CriterionInterface;
@@ -8,15 +12,21 @@ interface Props {
 export class CriterionItem extends React.Component<Props> {
   render() {
     return (
-      <div className="flex-container flex-align-items-center">
-        <label>{this.props.criterion.name}</label>
-        { this.props.criterion.values.map((cv:CriterionValueInterface, i: number) => 
-              <div key ={i}>
-                <div>{cv.name}</div>
-                <div>{cv.weight}</div>
+      <Row className="criterion-row">
+        <Col xs={3} className="criterion-name">
+          {this.props.criterion.name}
+        </Col>
+        <Col xs={9} className="criterion-category-list-container">
+          {this.props.criterion.values.map(
+            (cv: CriterionValueInterface, i: number) => (
+              <div className="category" key={i}>
+                <div className="name">{cv.name}</div>
+                <div className="weight">{cv.weight}</div>
               </div>
-         ) }
-      </div>
+            )
+          )}
+        </Col>
+      </Row>
     );
   }
 }

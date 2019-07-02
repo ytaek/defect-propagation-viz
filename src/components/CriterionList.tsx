@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { CriterionInterface } from 'src/services/DataService';
 import CriterionItem from './CriterionItem';
+import {Container} from 'react-bootstrap';
 
 interface Props {
     criteria: CriterionInterface[];
@@ -14,13 +15,12 @@ class CriterionList extends React.Component<Props> {
     console.log("#####", this.props);
 
     return (
-      <div>
-        <div>sidebar</div>
-        {
-          this.props.criteria.map((d, i) => <CriterionItem criterion={d} key={i}/>)
-        }
-        <div><button onClick={this.props.onInsertWeight}>Insert</button></div>
-        <div><button onClick={this.props.onDeleteWeight}>Delete</button></div>
+      <div id="criterion-list-panel">
+        <Container>
+          {
+            this.props.criteria.map((d, i) => <CriterionItem criterion={d} key={i}/>)
+          }
+        </Container>
       </div>
     );
   }
