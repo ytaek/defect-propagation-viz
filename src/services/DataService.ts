@@ -3,9 +3,17 @@ export interface MetaDatumInterface {
   values: string[];
 }
 
+export enum CriterionValueStatus {
+  CAND = 'CAND',
+  NONCAND = "NONCAND",
+  WEIGHT = "WEIGHT"
+}
+
 export interface CriterionValueInterface {
   name: string;
   weight: number;
+  status: CriterionValueStatus;
+  criterion?: CriterionInterface;
 }
 
 export interface CriterionInterface {
@@ -58,7 +66,11 @@ export class DataService {
 
     this._criteriaData = metaData.map((d: MetaDatumInterface) => {
       const cValues: CriterionValueInterface[] = d.values.map(
-        (item: string) => ({ name: item, weight: 0 })
+        (item: string) => ({ 
+          name: item, 
+          weight: 0, 
+          status: CriterionValueStatus.WEIGHT
+        })
       );
 
       const criterion: CriterionInterface = {
@@ -66,6 +78,8 @@ export class DataService {
         values: cValues,
         weight: 0
       };
+      cValues.forEach(cv => (cv.criterion = criterion));
+
       return criterion;
     });
 console.log("keys", Object.keys(new ProjectAttributes()));
