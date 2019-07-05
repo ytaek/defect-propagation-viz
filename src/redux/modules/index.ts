@@ -3,13 +3,13 @@ import { CriteriaState, criteriaReducer } from './criteria';
 import { projectReducer, ProjectsState } from './projects';
 
 export interface StoreState {
-    criteria: CriteriaState;
-    projects: ProjectsState;
+    criteriaState: CriteriaState;
+    projectsState: ProjectsState;
 }
 
 const reducers = combineReducers<StoreState>({
-    criteria: criteriaReducer,
-    projects: projectReducer
+    criteriaState: criteriaReducer,
+    projectsState: projectReducer
 });
 
-export default reducers;
+export default reducers; 

@@ -7,17 +7,18 @@ import { bindActionCreators } from 'redux';
 import CriterionList from 'src/components/CriterionList';
 
 interface Props {
-    criteriaData: CriterionInterface[];
+    criteria: CriterionInterface[];
     criteriaActions: typeof actionCreators;
 }
 
 class CriterionListContainer extends React.Component<Props> {
+    
     render() {
 console.log("CriterionListContainer", this.props);
 
         return (
           <CriterionList
-            criteria = {this.props.criteriaData} 
+            criteria = {this.props.criteria} 
             onInsertWeight={this.onInsertWeight} 
             onDeleteWeight={this.onDeleteWeight} 
           />
@@ -35,7 +36,7 @@ console.log("CriterionListContainer", this.props);
 }
 
 const mapStateToPros = (state: StoreState) => ( {
-    criteria: state.criteria
+    criteria: state.criteriaState.criteria
 });
 
 const mapDispatchToPros = (dispatch: any) => ( {
