@@ -18,7 +18,7 @@ class CriterionList extends React.Component<Props> {
       <div id="criterion-list-panel">
         <Container>
           {
-            this.props.criteria.map((d, i) => <CriterionItem criterion={d} key={i}/>)
+            this.props.criteria.map((d, i) => <CriterionItem criterion={d} index={i+1} key={i}/>)
           }
         </Container>
       </div>

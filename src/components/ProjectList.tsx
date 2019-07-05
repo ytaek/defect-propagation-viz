@@ -43,19 +43,22 @@ class ProjectList extends React.Component<Props> {
         <div className="flex-container flex-align-items-center">
           <label className="name">NAME</label>
           <div className="status-value">
-            CAND
-          </div>
-          <div className="status-value">
-            NON-CAND
+            CANDIDATE <br />
+            {this.props.criteria.map( (d: any, i:number) => (
+              <b>{i+1} </b>
+            ))}
           </div>
           <div>
             WEIGHT
           </div>
         </div>
         {
+          // sorting 
+          // cand - grey - noncand
           projects.map( (prj: ProjectInterface, i: number) => 
             <ProjectItem 
-              project={prj} 
+              project={prj}
+              criteria={this.props.criteria}
               candidateCriterionValueList={candidateCriterionValueList}
               nonCandidateCriterionValueList={nonCandidateCriterionValueList}
               weightCriterionValueList={weightCriterionValueList}
