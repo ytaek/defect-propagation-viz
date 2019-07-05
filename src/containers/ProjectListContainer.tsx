@@ -5,6 +5,7 @@ import { projectsActionCreators } from 'src/redux/modules/projects';
 import { bindActionCreators } from 'redux';
 import { StoreState } from 'src/redux/modules';
 import ProjectList from 'src/components/ProjectList';
+import { criteriaReducer } from 'src/redux/modules/criteria';
 
 interface Props {
     projects: ProjectInterface[];
@@ -13,42 +14,41 @@ interface Props {
 }
 
 class ProjectListContainer extends React.Component<Props> {
-    private _candidateCriterionValueList: CriterionValueInterface[];
-    private _nonCandidateCriterionValueList: CriterionValueInterface[];
-    private _weightCriterionValueList: CriterionValueInterface[];
-    
-    constructor(props: any) {
-        super(props);
 
-        // move somewhere
-        this._candidateCriterionValueList = this.getCriterionValueListByStatus(CriterionValueStatus.CAND);
-        this._nonCandidateCriterionValueList = this.getCriterionValueListByStatus(CriterionValueStatus.NONCAND);
-        this._weightCriterionValueList = this.getCriterionValueListByStatus(CriterionValueStatus.WEIGHT);
-    }
+    // constructor(props: any) {
+    //     super(props);
+    // }
 
     render() {
-console.log("ProjectListContainer", this.props);
-
         return (
           <ProjectList
             projects={this.props.projects} 
+            criteria={this.props.criteria}
             onOrder={this.onOrder} 
           />
         );
     }
 
     onOrder = (): void => {
+        // test
+        this.props.criteria[0].values[0].status = CriterionValueStatus.CAND;
+        this.props.criteria[0].values[1].status = CriterionValueStatus.CAND;
+        this.props.criteria[0].values[2].status = CriterionValueStatus.NONCAND;
+        this.props.criteria[0].values[3].status = CriterionValueStatus.CAND;
+        this.props.criteria[0].values[4].status = CriterionValueStatus.CAND;
+        this.props.criteria[0].values[5].status = CriterionValueStatus.CAND;
+        this.props.criteria[0].values[6].status = CriterionValueStatus.NONCAND;
+
+        this.props.criteria[2].values[1].status = CriterionValueStatus.NONCAND;
+        this.props.criteria[3].values[0].status = CriterionValueStatus.CAND;
+
+        this.props.criteria[4].values[2].status = CriterionValueStatus.CAND;
+        this.props.criteria[4].values[3].status = CriterionValueStatus.NONCAND;
+
+        
         const { projectsActions } = this.props;
         projectsActions.order();
     }
-
-    private getCriterionValueListByStatus(status: CriterionValueStatus): CriterionValueInterface[] {
-        const cvList: CriterionValueInterface[] = [];
-        return this.props.criteria.reduce(
-            (prev, cv) => (prev.concat(cv.values)), cvList)
-            .filter(cv => (cv.status === status));
-    }
-
 }
 
 const mapStateToPros = (state: StoreState) => ( {
