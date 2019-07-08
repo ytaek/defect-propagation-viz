@@ -1,6 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { CriterionInterface } from "../services/DataService";
+import { CriterionInterface, CriterionValueInterface } from "../services/DataService";
 import { StoreState } from '../redux/modules';
 import { actionCreators } from 'src/redux/modules/criteria';
 import { bindActionCreators } from 'redux';
@@ -21,6 +21,7 @@ console.log("CriterionListContainer", this.props);
             criteria = {this.props.criteria} 
             onInsertWeight={this.onInsertWeight} 
             onDeleteWeight={this.onDeleteWeight} 
+            onToggleWeight={this.onToggleWeight}
           />
         );
     }
@@ -32,6 +33,25 @@ console.log("CriterionListContainer", this.props);
     onDeleteWeight = (): void => {
         const { criteriaActions } = this.props;
         criteriaActions.deleteWeight();
+    }
+
+    onToggleWeight = (cv: CriterionValueInterface): void => {
+console.log("Container toggle called")
+        let w = 0;
+        const { weight } = cv;
+
+        if (weight === 0) {
+            w = 0.5;
+        } else if (weight === 0.5) {
+            w = 1;
+        } else {
+            w = 0;
+        }
+        
+        cv.weight = w;
+        
+        const { criteriaActions } = this.props;
+        criteriaActions.insertWeight();
     }
 }
 

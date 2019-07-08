@@ -9,6 +9,7 @@ import { CriterionValueWeightControl } from './CriterionValueWeightControl';
 interface Props {
   criterion: CriterionInterface;
   index: number;
+  onToggleWeight(cv: CriterionValueInterface): void;
 }
 
 export class CriterionItem extends React.Component<Props> {
@@ -23,7 +24,10 @@ export class CriterionItem extends React.Component<Props> {
         <Col xs={9} className="criterion-category-list-container">
           {this.props.criterion.values.map(
             (cv: CriterionValueInterface, i: number) => (
-              <CriterionValueWeightControl key={i} name={cv.name} weight={cv.weight} />
+              <CriterionValueWeightControl 
+                key={i} 
+                onToggleWeight={this.props.onToggleWeight}
+                criterionValue={cv}/>
             )
           )}
         </Col>
@@ -31,8 +35,8 @@ export class CriterionItem extends React.Component<Props> {
     );
   }
 
-  onCategoryClicked = (criterionValue: any) => {
-    console.log(criterionValue)
+  onCategoryClicked = (cv: any) => {
+    console.log(cv)
   }
 }
 

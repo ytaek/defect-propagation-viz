@@ -10,6 +10,13 @@ interface Props {
 }
 
 class ProjectList extends React.Component<Props> {
+
+  test2 = () => {
+    console.log(this.props.criteria[0].values[0].status);
+    this.props.criteria[0].values[0].status = CriterionValueStatus.NONCAND;
+    console.log(this.props.criteria[0].values[0].status);
+  }
+
   render() {
     const candidateCriterionValueList = this.getCriterionValueListByStatus(CriterionValueStatus.CAND);
     const nonCandidateCriterionValueList = this.getCriterionValueListByStatus(CriterionValueStatus.NONCAND);
@@ -21,6 +28,7 @@ class ProjectList extends React.Component<Props> {
     return (
       <div>
         <div><button onClick={this.props.onOrder}>TEST</button></div>
+        <div><button onClick={this.test2}>TEST#2</button></div>
         <div>project List</div>
         {/* <div className="flex-container flex-align-items-center">
           <label className="name">NAME</label>
@@ -45,7 +53,7 @@ class ProjectList extends React.Component<Props> {
           <div className="status-value">
             CANDIDATE <br />
             {this.props.criteria.map( (d: any, i:number) => (
-              <b>{i+1} </b>
+              <b key={i}>{i+1} </b>
             ))}
           </div>
           <div>

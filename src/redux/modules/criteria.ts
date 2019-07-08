@@ -1,4 +1,5 @@
-import { CriterionInterface } from 'src/services/DataService';
+import { CriterionInterface, CriterionValueInterface } from 'src/services/DataService';
+import { string } from 'prop-types';
 
 // types
 export interface CriteriaState {
@@ -7,6 +8,7 @@ export interface CriteriaState {
 
 export const INSERT_WEIGHT = "criteria/INSERT_WEIGHT";
 export const DELETE_WEIGHT = "criteria/DELETE_WEIGHT";
+export const TOGGLE_WEIGHT = "criteria/TOGGLE_WEIGHT";
 
 interface InsertWeightAction {
   type: typeof INSERT_WEIGHT;
@@ -16,6 +18,13 @@ interface InsertWeightAction {
 interface DeleteWeightAction {
   type: typeof DELETE_WEIGHT;
   payload: number;
+}
+
+interface ToggleWeightAction {
+  type: typeof TOGGLE_WEIGHT;
+  payload: {
+    criterionValueInterface: CriterionValueInterface
+  };
 }
 
 export type CriteriaActionTypes = 
@@ -38,6 +47,19 @@ function deleteWeight() {
     type: DELETE_WEIGHT,
     payload: {}
   };
+}
+
+function toggleWeight(cv: CriterionValueInterface) {
+  console.log("CALLED Toggle Weight");
+  return {
+    type: TOGGLE_WEIGHT,
+    // payload: {
+    //   name: cv.name,
+    //   weight: cv.weight,
+    //   status: cv.status,
+    //   criterion: cv.cri
+    // }
+  }
 }
 
 export const actionCreators = {
@@ -68,38 +90,3 @@ export function criteriaReducer(
       return state;
   }
 }
-
-// import { createAction, handleActions } from "redux-actions";
-
-// // Actions
-// const INSERT_WEIGHT = "criteria/INSERT_WEIGHT";
-// const DELETE_WEIGHT = "criteria/DELETE_WEIGHT";
-
-// export const actionCreators = {
-//   insert: createAction(INSERT_WEIGHT),
-//   delete: createAction(DELETE_WEIGHT)
-// };
-
-// export interface CriterionState {
-//   weights: any;
-//   criterionWeight: number;
-// }
-
-// const initialState: CriterionState = {
-//   weights: {},
-//   criterionWeight: 1
-// };
-
-// // Reducers
-// export default handleActions<CriterionState, number>(
-//   {
-//     [INSERT_WEIGHT]: (state, action) => {
-//       console.log(state);
-//       return { ...state, weights: undefined, criterionWeight: action.payload };
-//     }
-//     // [INSERT_WEIGHT]: (state, w, cw) => ({ state.weights = w; state.criterionWeight = cw; }),
-//     // [DELETE_WEIGHT]:state => ({ value: state.value - 1 })
-//     // [INCREMENT]: (state) => ({ value: state.value + 1 }),
-//   },
-//   initialState
-// );

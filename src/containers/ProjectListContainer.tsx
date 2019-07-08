@@ -10,7 +10,7 @@ import { criteriaReducer } from 'src/redux/modules/criteria';
 interface Props {
     projects: ProjectInterface[];
     criteria: CriterionInterface[];
-    projectsActions: typeof projectsActionCreators;
+    projectsActions: typeof projectsActionCreators; 
 }
 
 class ProjectListContainer extends React.Component<Props> {
@@ -20,13 +20,24 @@ class ProjectListContainer extends React.Component<Props> {
     // }
 
     render() {
+console.log("Container render reloaded!!")
         return (
-          <ProjectList
-            projects={this.props.projects} 
-            criteria={this.props.criteria}
-            onOrder={this.onOrder} 
-          />
+            <div>
+                <button onClick={this.test} >test</button>
+                <ProjectList
+                    projects={this.props.projects}
+                    criteria={this.props.criteria}
+                    onOrder={this.onOrder}
+                />
+            </div>
         );
+    }
+
+    test = (): void => {
+        this.props.criteria[0].values[0].status = CriterionValueStatus.CAND;
+        
+        const { projectsActions } = this.props;
+        projectsActions.order();
     }
 
     onOrder = (): void => {
@@ -45,18 +56,18 @@ class ProjectListContainer extends React.Component<Props> {
         this.props.criteria[4].values[2].status = CriterionValueStatus.CAND;
         this.props.criteria[4].values[3].status = CriterionValueStatus.NONCAND;
 
-        
+
         const { projectsActions } = this.props;
         projectsActions.order();
     }
 }
 
-const mapStateToPros = (state: StoreState) => ( {
+const mapStateToPros = (state: StoreState) => ({
     projects: state.projectsState.projects,
     criteria: state.criteriaState.criteria
 });
 
-const mapDispatchToPros = (dispatch: any) => ( {
+const mapDispatchToPros = (dispatch: any) => ({
     projectsActions: bindActionCreators(projectsActionCreators, dispatch)
 });
 
