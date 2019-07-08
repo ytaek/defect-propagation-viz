@@ -1,4 +1,4 @@
-import { ProjectInterface, CriterionInterface, ProjectAttributes } from 'src/services/DataService';
+import { ProjectInterface, CriterionInterface, ProjectAttributes, CriterionValueStatus } from 'src/services/DataService';
 
 // types
 export interface ProjectsState {
@@ -52,9 +52,12 @@ export function projectReducer(
 
         const score = Object.keys(new ProjectAttributes()).reduce( (prev: number, name: string) => {
 console.log("name", name, action.payload.criteria.filter(d => (d.name === name)));
-
-          prev += action.payload.criteria.filter(d => (d.name === name))[0]
-                      .values.filter(d => d.name === proj.attributes[name])[0].weight;
+          
+          const cv = action.payload.criteria.filter(d => (d.name === name))[0]
+                    .values.filter(d => d.name === proj.attributes[name])[0];
+          if (cv.status === CriterionValueStatus.WEIGHT) {
+            prev += cv.weight;
+          }
           return prev;
         }, 0);
 console.log("Score = ", score)
