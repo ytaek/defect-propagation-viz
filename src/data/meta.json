@@ -18,7 +18,7 @@
         ]
     },
     {
-        "name": "nand_cell",
+        "name": "nandCell",
         "values": [
             "NANDA4",
             "NANDA1",
@@ -26,7 +26,7 @@
         ]
     },
     {
-        "name": "form_factor",
+        "name": "formFactor",
         "values": [
             "NANDC2",
             "NANDC1"
@@ -43,7 +43,7 @@
         ]
     },
     {
-        "name": "nanddesign",
+        "name": "nandDesign",
         "values": [
             "NANDB5",
             "NANDB7",

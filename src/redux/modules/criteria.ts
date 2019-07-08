@@ -1,5 +1,5 @@
 import { CriterionInterface, CriterionValueInterface } from 'src/services/DataService';
-import { string } from 'prop-types';
+import update from 'react-addons-update';
 
 // types
 export interface CriteriaState {
@@ -23,13 +23,15 @@ interface DeleteWeightAction {
 interface ToggleWeightAction {
   type: typeof TOGGLE_WEIGHT;
   payload: {
-    criterionValueInterface: CriterionValueInterface
+    criterionValue: CriterionValueInterface
   };
 }
 
 export type CriteriaActionTypes = 
   | InsertWeightAction
-  | DeleteWeightAction;
+  | DeleteWeightAction
+  | ToggleWeightAction
+  ;
 
 // actions
 
@@ -50,27 +52,38 @@ function deleteWeight() {
 }
 
 function toggleWeight(cv: CriterionValueInterface) {
-  console.log("CALLED Toggle Weight");
+  console.log("CALLED Toggle Weight", cv);
+
+  let w = 0;
+  const { weight } = cv;
+
+  if (weight === 0) {
+      w = 0.5;
+  } else if (weight === 0.5) {
+      w = 1;
+  } else {
+      w = 0;
+  }
+  cv.weight = w;
+
   return {
     type: TOGGLE_WEIGHT,
-    // payload: {
-    //   name: cv.name,
-    //   weight: cv.weight,
-    //   status: cv.status,
-    //   criterion: cv.cri
-    // }
+    payload: {
+      criterionValue: cv
+    }
   }
 }
 
-export const actionCreators = {
+export const criteriaActionCreators = {
   insertWeight,
-  deleteWeight
+  deleteWeight,
+  toggleWeight
 }
 
 // reducers
 
 const initialState: CriteriaState = {
-  criteria: []
+  criteria: [],
 }
 
 export function criteriaReducer(
@@ -86,6 +99,21 @@ export function criteriaReducer(
       return {
         criteria: [...state.criteria]
       };
+    case TOGGLE_WEIGHT:
+      return {
+        criteria: update(
+          state.criteria,
+          {
+            [action.payload.criterionValue.criterion!.id]: {
+              values: {
+                [action.payload.criterionValue.id]: {
+                  weight: {$set: action.payload.criterionValue.weight}
+                }  
+              }
+            }
+          }
+        )
+      }
     default:
       return state;
   }

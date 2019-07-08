@@ -59,6 +59,9 @@ class ProjectList extends React.Component<Props> {
           <div>
             WEIGHT
           </div>
+          <div>
+            ATTRIBUTES
+          </div>
         </div>
         {
           // sorting 

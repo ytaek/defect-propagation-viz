@@ -10,6 +10,7 @@ export enum CriterionValueStatus {
 }
 
 export interface CriterionValueInterface {
+  id: number;
   name: string;
   weight: number;
   status: CriterionValueStatus;
@@ -17,6 +18,7 @@ export interface CriterionValueInterface {
 }
 
 export interface CriterionInterface {
+  id: number;
   name: string;
   values: CriterionValueInterface[];
   weight: number;
@@ -30,12 +32,12 @@ export interface ProjectInterface {
 }
 
 export class ProjectAttributes {
-  product: string;
-  productApply: string;
-  imsProjectName: string;
+  // product: string;
+  // productApply: string;
+  // imsProjectName: string;
   // parentProjectCode: string;
   oem: string;
-  fwVersion: string;
+  // fwVersion: string;
   capacity: string;
   density: string;
   formFactor: string;
@@ -43,11 +45,11 @@ export class ProjectAttributes {
   nandDesign: string;
 
   constructor() {
-    this.product = "";
-    this.productApply = "";
-    this.imsProjectName = "";
+    // this.product = "";
+    // this.productApply = "";
+    // this.imsProjectName = "";
     this.oem = "";
-    this.fwVersion = "";
+    // this.fwVersion = "";
     this.capacity = "";
     this.density = "";
     this.formFactor = "";
@@ -64,9 +66,10 @@ export class DataService {
     const metaData = require("../data/meta.json");
     const prjData = require("../data/projects.json");
 
-    this._criteriaData = metaData.map((d: MetaDatumInterface) => {
+    this._criteriaData = metaData.map((d: MetaDatumInterface, ci: number) => {
       const cValues: CriterionValueInterface[] = d.values.map(
-        (item: string) => ({ 
+        (item: string, cvi:number) => ({ 
+          id: cvi,
           name: item, 
           weight: 0, 
           status: CriterionValueStatus.WEIGHT
@@ -74,6 +77,7 @@ export class DataService {
       );
 
       const criterion: CriterionInterface = {
+        id: ci,
         name: d.name,
         values: cValues,
         weight: 0

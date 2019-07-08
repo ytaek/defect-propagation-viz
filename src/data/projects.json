@@ -681,7 +681,7 @@
         "productApply": "PA101",
         "imsProjectName": "AB123",
         "fwVersion": "ABCD1283",
-        "oem": "null",
+        "oem": "OEM1",
         "capacity": "NANDE20",
         "density": "NANDD5",
         "formFactor": "NANDC2",

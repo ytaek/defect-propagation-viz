@@ -37,6 +37,9 @@ export class ProjectItem extends React.Component<Props> {
         <div className="status-value">
           {candidates.map( (c, i) => (<b key={i}>{c} </b>))}
         </div>
+        <div className="SCORE">
+          [ {project.score} ]
+        </div>
         { 
           Object.keys(project.attributes).map( (key: string, i: number) => 
               <div key ={i}>

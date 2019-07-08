@@ -23,7 +23,6 @@ class CriterionList extends React.Component<Props> {
               <CriterionItem 
                 criterion={d} 
                 onToggleWeight={this.props.onToggleWeight}
-                index={i+1} 
                 key={i}/>)
           }
         </Container>

@@ -2,7 +2,7 @@ import * as React from "react";
 import { CriterionInterface, CriterionValueInterface } from 'src/services/DataService';
 
 interface Props {
-    criterionValue: CriterionValueInterface;    
+    criterionValue: CriterionValueInterface;
     onToggleWeight(cv: CriterionValueInterface): void;
 }
 

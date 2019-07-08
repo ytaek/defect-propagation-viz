@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/react-addons-update": "^0.14.20",
     "@types/react-redux": "^7.1.0",
     "@types/redux-actions": "^2.6.1",
     "bootstrap": "^4.3.1",
     "react": "^16.8.6",
+    "react-addons-update": "^15.6.2",
     "react-bootstrap": "^1.0.0-beta.9",
     "react-dom": "^16.8.6",
     "react-redux": "^7.1.0",

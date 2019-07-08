@@ -5,7 +5,6 @@ import { projectsActionCreators } from 'src/redux/modules/projects';
 import { bindActionCreators } from 'redux';
 import { StoreState } from 'src/redux/modules';
 import ProjectList from 'src/components/ProjectList';
-import { criteriaReducer } from 'src/redux/modules/criteria';
 
 interface Props {
     projects: ProjectInterface[];
@@ -14,13 +13,19 @@ interface Props {
 }
 
 class ProjectListContainer extends React.Component<Props> {
-
     // constructor(props: any) {
     //     super(props);
     // }
 
+    // private calculateProjectScores() {
+    //     const { projectsActions } = this.props;
+    //     projectsActions.order();
+    // }
+
     render() {
-console.log("Container render reloaded!!")
+        const { projectsActions, criteria } = this.props;
+        // projectsActions.calculateScore(criteria);
+console.log("Container render reloaded!!", this.props.criteria)
         return (
             <div>
                 <button onClick={this.test} >test</button>
@@ -33,11 +38,12 @@ console.log("Container render reloaded!!")
         );
     }
 
+
     test = (): void => {
         this.props.criteria[0].values[0].status = CriterionValueStatus.CAND;
         
-        const { projectsActions } = this.props;
-        projectsActions.order();
+        const { projectsActions, criteria } = this.props;
+        projectsActions.calculateScore(criteria);
     }
 
     onOrder = (): void => {
@@ -57,8 +63,8 @@ console.log("Container render reloaded!!")
         this.props.criteria[4].values[3].status = CriterionValueStatus.NONCAND;
 
 
-        const { projectsActions } = this.props;
-        projectsActions.order();
+        const { projectsActions, criteria } = this.props;
+        projectsActions.calculateScore(criteria);
     }
 }
 

@@ -1,32 +1,39 @@
-import { ProjectInterface } from 'src/services/DataService';
+import { ProjectInterface, CriterionInterface, ProjectAttributes } from 'src/services/DataService';
 
 // types
 export interface ProjectsState {
   projects: ProjectInterface[];
 }
 
-export const ORDER = "project/ORDER";
+export const CALCULATE_SCORE = "project/CALCULATE_SCORE";
 
-interface OrderAction {
-  type: typeof ORDER;
-  payload: number;
+interface CalculateScoreAction {
+  type: typeof CALCULATE_SCORE;
+  payload: {
+    criteria: CriterionInterface[]
+  };
 }
 
-export type CriteriaActionTypes = 
-  | OrderAction;
+export type ProjectsActionTypes = 
+  | CalculateScoreAction
+  ;
+
 
 // actions
 
-function order() {
-  console.log("ORDER");
+function calculateScore(cr: CriterionInterface[]) {
+  console.log("calculateScore function called");
+
   return {
-    type: ORDER,
-    payload: {}
+    type: CALCULATE_SCORE,
+    payload: {
+      criteria: cr
+    }
   };
 }
 
 export const projectsActionCreators = {
-  order,
+  calculateScore,
 }
 
 // reducers
@@ -37,12 +44,28 @@ const initialState: ProjectsState = {
 
 export function projectReducer(
   state = initialState,
-  action: CriteriaActionTypes
+  action: ProjectsActionTypes
 ): ProjectsState {
   switch (action.type) {
-    case ORDER:
+    case CALCULATE_SCORE:
+      const newProjects = state.projects.map( (proj) => {
+
+        const score = Object.keys(new ProjectAttributes()).reduce( (prev: number, name: string) => {
+console.log("name", name, action.payload.criteria.filter(d => (d.name === name)));
+
+          prev += action.payload.criteria.filter(d => (d.name === name))[0]
+                      .values.filter(d => d.name === proj.attributes[name])[0].weight;
+          return prev;
+        }, 0);
+console.log("Score = ", score)
+        proj.score = score;
+        return proj;
+      });
+      
+console.log("NewProject = ", newProjects);
+
       return {
-        projects: [...state.projects]
+        projects: newProjects
       };
     default:
       return state;

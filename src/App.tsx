@@ -26,13 +26,8 @@ class App extends React.Component<Props> {
   }
 
   render() {
-console.log("app", this.dataService.criteriaData);
+console.log("APP RENDER", this.props.criteria);
 
-    // const t: ProjectInterface = {
-    //   code:"1234", score:0, isPropCandidate:false, 
-    //   attributes: undefined 
-    // };
-// console.log("t", t);
     return (
       <div className="App-container">
         <div className="App-sidebar">
@@ -58,4 +53,3 @@ export default connect(
   mapStateToPros,
   mapDispatchToPros
 )(App);
-// export default App;
