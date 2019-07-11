@@ -25,6 +25,8 @@ class ProjectList extends React.Component<Props> {
     console.log("ProjectList", this.props);
     const { projects } = this.props;
 
+    projects.sort( (a, b) => (b.score - a.score) );
+
     return (
       <div>
         <div><button onClick={this.props.onOrder}>TEST</button></div>
