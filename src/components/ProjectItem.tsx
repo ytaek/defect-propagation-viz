@@ -33,7 +33,7 @@ export class ProjectItem extends React.Component<Props> {
 
     return (
       <div className="flex-container flex-align-items-center">
-        <label className="name">{project.code}</label>
+        <div className="project-name">{project.code}</div>
         {/* {
           this.props.candidateCriterionValueList.map( (cv: CriterionValueInterface) => (
             project.attributes[cv.criterion!.name] === cv.name ? (
@@ -43,7 +43,7 @@ export class ProjectItem extends React.Component<Props> {
             ): "-"
           ))
         } */}
-        <div className="status-value">
+        <div className="candidate-ox">
           {candidates.map( (c, i) => (<b key={i}>{c} </b>))}
         </div>
         <div className="score">
@@ -52,7 +52,7 @@ export class ProjectItem extends React.Component<Props> {
         {
           // criteria.filter(c => c.weight !== 0).map( (c, i) => (
             criteria.map( (c, i) => (
-            <div key={i}>
+            <div key={i} className="attributes">
               <div style={{
                   width:100*criterionWeights[i],
                   backgroundColor: colos[i]

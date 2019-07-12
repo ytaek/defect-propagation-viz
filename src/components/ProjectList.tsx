@@ -51,17 +51,17 @@ class ProjectList extends React.Component<Props> {
           }
         </div> */}
         <div className="flex-container flex-align-items-center">
-          <label className="name">NAME</label>
-          <div className="status-value">
+          <div className="project-name">NAME</div>
+          <div className="candidate-ox">
             CANDIDATE <br />
             {this.props.criteria.map( (d: any, i:number) => (
               <b key={i}>{i+1} </b>
             ))}
           </div>
-          <div>
-            WEIGHT
+          <div className="score">
+            SCORES
           </div>
-          <div>
+          <div className="attributes">
             ATTRIBUTES
           </div>
         </div>
