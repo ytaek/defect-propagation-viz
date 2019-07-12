@@ -114,15 +114,30 @@
                     line-height: 0.5;
                     position: absolute;
                     left: 1px;
-                    top:0px;
+                    top: 0px;
                     color: gray;
                     font-weight: 500;
+                  }
+
+                  &.status-weight {
+                    font-size: 0.75rem;
+                    font-weight: bold;
+                    color: gray;
+                    position: absolute;
+                    left: 2px;
                   }
                 }
               }
             }
 
-            .weight {}
+            .weight-slider {
+              flex: 1;
+              background: #fafafa;
+              height: 16px;
+              margin-left: 11px;
+              border: 1px solid #dedede;
+              position: relative;
+            }
           }
         }
       }

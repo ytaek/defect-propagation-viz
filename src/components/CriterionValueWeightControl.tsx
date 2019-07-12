@@ -21,7 +21,11 @@ export class CriterionValueWeightControl extends React.Component<Props> {
   render() {
     let weightView
     if(this.props.criterionValue.status === CriterionValueStatus.WEIGHT){
-      weightView = <div className="weight-slider"/>
+      weightView = <div className="weight-slider">
+        <div className="slider-bar" style={{
+          width: this.props.criterionValue.weight * 100 + 'px'
+        }}/>
+      </div>
     }
 
     return (
@@ -45,7 +49,7 @@ export class CriterionValueWeightControl extends React.Component<Props> {
         return (<div className="status status-noncand">×</div>)
       case CriterionValueStatus.WEIGHT:
         default:
-          return (<div className="status status-weight"/>)
+          return (<div className="status status-weight">W</div>)
     }
   }
 }
