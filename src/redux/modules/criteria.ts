@@ -1,4 +1,4 @@
-import { CriterionInterface, CriterionValueInterface } from 'src/services/DataService';
+import { CriterionInterface, CriterionValueInterface, CriterionValueStatus } from 'src/services/DataService';
 import update from 'react-addons-update';
 
 // types
@@ -52,20 +52,11 @@ function deleteWeight() {
 }
 
 function toggleWeight(cv: CriterionValueInterface) {
-  console.log("CALLED Toggle Weight", cv);
-
-  let w = 0;
-  const { weight } = cv;
-
-  if (weight === 0) {
-      w = 0.5;
-  } else if (weight === 0.5) {
-      w = 1;
-  } else {
-      w = 0;
-  }
-  cv.weight = w;
-
+  console.log("CALLED Toggle Weight", cv, CriterionValueStatus, Object.values(CriterionValueStatus));
+  
+  const nextStatus = (cv.status + 1) % (Object.keys(CriterionValueStatus).length / 2);
+  cv.status = nextStatus;
+console.log("toggle status => ", cv.status, nextStatus);
   return {
     type: TOGGLE_WEIGHT,
     payload: {
@@ -107,7 +98,7 @@ export function criteriaReducer(
             [action.payload.criterionValue.criterion!.id]: {
               values: {
                 [action.payload.criterionValue.id]: {
-                  weight: {$set: action.payload.criterionValue.weight}
+                  status: {$set: action.payload.criterionValue.status}
                 }  
               }
             }

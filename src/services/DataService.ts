@@ -4,9 +4,9 @@ export interface MetaDatumInterface {
 }
 
 export enum CriterionValueStatus {
-  CAND = 'CAND',
-  NONCAND = "NONCAND",
-  WEIGHT = "WEIGHT"
+  CAND = 1,
+  WEIGHT = 2,
+  NONCAND = 3
 }
 
 export interface CriterionValueInterface {
