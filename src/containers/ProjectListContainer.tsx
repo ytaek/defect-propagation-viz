@@ -47,6 +47,7 @@ console.log("Container render reloaded!!", this.props.criteria)
     }
 
     onOrder = (): void => {
+console.log("onOrder called");
         // test
         this.props.criteria[0].values[0].status = CriterionValueStatus.CAND;
         this.props.criteria[0].values[1].status = CriterionValueStatus.CAND;

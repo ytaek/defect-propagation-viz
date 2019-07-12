@@ -51,8 +51,6 @@ export function projectReducer(
       const newProjects = state.projects.map( (proj) => {
 
         const score = Object.keys(new ProjectAttributes()).reduce( (prev: number, name: string) => {
-console.log("name", name, action.payload.criteria.filter(d => (d.name === name)));
-          
           const cv = action.payload.criteria.filter(d => (d.name === name))[0]
                     .values.filter(d => d.name === proj.attributes[name])[0];
           if (cv.status === CriterionValueStatus.WEIGHT) {
@@ -60,13 +58,9 @@ console.log("name", name, action.payload.criteria.filter(d => (d.name === name))
           }
           return prev;
         }, 0);
-console.log("Score = ", score)
         proj.score = score;
         return proj;
       });
-      
-console.log("NewProject = ", newProjects);
-
       return {
         projects: newProjects
       };
