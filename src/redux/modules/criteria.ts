@@ -54,7 +54,7 @@ function deleteWeight() {
 function toggleWeight(cv: CriterionValueInterface) {
   console.log("CALLED Toggle Weight", cv, CriterionValueStatus, Object.values(CriterionValueStatus));
   
-  const nextStatus = (cv.status + 1) % (Object.keys(CriterionValueStatus).length / 2);
+  const nextStatus = (cv.status + 1) % (Object.keys(CriterionValueStatus).length / 2) + 1 ;
   cv.status = nextStatus;
 console.log("toggle status => ", cv.status, nextStatus);
   return {
