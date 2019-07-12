@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@material/react-material-icon": "^0.14.1",
+    "@types/classnames": "^2.2.9",
     "@types/d3": "^5.7.2",
     "@types/react-addons-update": "^0.14.20",
     "@types/react-redux": "^7.1.0",
