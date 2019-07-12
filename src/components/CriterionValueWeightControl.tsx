@@ -41,11 +41,12 @@ export class CriterionValueWeightControl extends React.Component<Props> {
   }
 
   renderStatusSwitch(status: CriterionValueStatus){
-    console.log("status: " , status)
+    // console.log("status: " , status, CriterionValueStatus.CAND, CriterionValueStatus.NONCAND, CriterionValueStatus.WEIGHT)
     switch(status){
       case CriterionValueStatus.CAND:
         return (<div className="status status-cand"/>)
       case CriterionValueStatus.NONCAND:
+            console.log(status, CriterionValueStatus.NONCAND);
         return (<div className="status status-noncand">×</div>)
       case CriterionValueStatus.WEIGHT:
         default:
