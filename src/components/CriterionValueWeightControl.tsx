@@ -4,6 +4,7 @@ import { CriterionInterface, CriterionValueInterface, CriterionValueStatus } fro
 interface Props {
   criterionValue: CriterionValueInterface;
   onToggleWeight(cv: CriterionValueInterface): void;
+  onSetWeight(cv:CriterionValueInterface, weight: number): void;
 }
 
 export class CriterionValueWeightControl extends React.Component<Props> {
@@ -18,10 +19,15 @@ export class CriterionValueWeightControl extends React.Component<Props> {
     this.props.onToggleWeight(this.props.criterionValue);
   }
 
+  onMouseDown(event: any){
+    console.log(event.screenX, ", ", event.screenY)
+    return true
+  }
+
   render() {
     let weightView
     if(this.props.criterionValue.status === CriterionValueStatus.WEIGHT){
-      weightView = <div className="weight-slider">
+      weightView = <div className="weight-slider" onMouseDown={this.onMouseDown}>
         <div className="slider-bar" style={{
           width: this.props.criterionValue.weight * 100 + 'px'
         }}/>

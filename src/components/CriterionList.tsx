@@ -8,6 +8,7 @@ interface Props {
     onInsertWeight(): void;
     onDeleteWeight(): void;
     onToggleWeight(cv: CriterionValueInterface): void;
+    onSetWeight(cv:CriterionValueInterface, weight: number): void;
 }
 
 class CriterionList extends React.Component<Props> {
@@ -23,6 +24,7 @@ class CriterionList extends React.Component<Props> {
               <CriterionItem 
                 criterion={d} 
                 onToggleWeight={this.props.onToggleWeight}
+                onSetWeight={this.props.onSetWeight}
                 key={i}/>)
           }
         </Container>

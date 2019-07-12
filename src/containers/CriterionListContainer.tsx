@@ -8,53 +8,61 @@ import CriterionList from 'src/components/CriterionList';
 import { projectsActionCreators } from 'src/redux/modules/projects';
 
 interface Props {
-    criteria: CriterionInterface[];
-    criteriaActions: typeof criteriaActionCreators;
-    projectsActions: typeof projectsActionCreators;
+  criteria: CriterionInterface[];
+  criteriaActions: typeof criteriaActionCreators;
+  projectsActions: typeof projectsActionCreators;
 }
 
 class CriterionListContainer extends React.Component<Props> {
-    
-    render() {
-console.log("CriterionListContainer", this.props);
 
-        return (
-          <CriterionList
-            criteria = {this.props.criteria} 
-            onInsertWeight={this.onInsertWeight} 
-            onDeleteWeight={this.onDeleteWeight} 
-            onToggleWeight={this.onToggleWeight}
-          />
-        );
-    }
+  render() {
+    console.log("CriterionListContainer", this.props);
 
-    onInsertWeight = (): void => {
-        const { criteriaActions } = this.props;
-        criteriaActions.insertWeight();
-    }
-    onDeleteWeight = (): void => {
-        const { criteriaActions } = this.props;
-        criteriaActions.deleteWeight();
-    }
+    return (
+      <CriterionList
+        criteria={this.props.criteria}
+        onInsertWeight={this.onInsertWeight}
+        onDeleteWeight={this.onDeleteWeight}
+        onToggleWeight={this.onToggleWeight}
+        onSetWeight={this.onSetWeight}
+      />
+    );
+  }
 
-    onToggleWeight = (cv: CriterionValueInterface): void => {
-console.log("Container toggle called")
-        const { criteria, criteriaActions, projectsActions } = this.props;
-        criteriaActions.toggleWeight(cv);
-        projectsActions.calculateScore(criteria);
-    }
+  onInsertWeight = (): void => {
+    const { criteriaActions } = this.props;
+    criteriaActions.insertWeight();
+  }
+  onDeleteWeight = (): void => {
+    const { criteriaActions } = this.props;
+    criteriaActions.deleteWeight();
+  }
+
+  onToggleWeight = (cv: CriterionValueInterface): void => {
+    console.log("Container toggle called")
+    const { criteria, criteriaActions, projectsActions } = this.props;
+    criteriaActions.toggleWeight(cv);
+    projectsActions.calculateScore(criteria);
+  }
+
+  onSetWeight = (cv: CriterionValueInterface, weight: number): void => {
+    const { criteria, criteriaActions, projectsActions } = this.props;
+    cv.weight = weight;
+    criteriaActions.setWeight(cv);
+    projectsActions.calculateScore(criteria);
+  }
 }
 
-const mapStateToPros = (state: StoreState) => ( {
-    criteria: state.criteriaState.criteria
+const mapStateToPros = (state: StoreState) => ({
+  criteria: state.criteriaState.criteria
 });
 
-const mapDispatchToPros = (dispatch: any) => ( {
-    criteriaActions: bindActionCreators(criteriaActionCreators, dispatch),
-    projectsActions: bindActionCreators(projectsActionCreators, dispatch),
+const mapDispatchToPros = (dispatch: any) => ({
+  criteriaActions: bindActionCreators(criteriaActionCreators, dispatch),
+  projectsActions: bindActionCreators(projectsActionCreators, dispatch),
 });
 
 export default connect(
-    mapStateToPros,
-    mapDispatchToPros
+  mapStateToPros,
+  mapDispatchToPros
 )(CriterionListContainer);

@@ -9,6 +9,7 @@ export interface CriteriaState {
 export const INSERT_WEIGHT = "criteria/INSERT_WEIGHT";
 export const DELETE_WEIGHT = "criteria/DELETE_WEIGHT";
 export const TOGGLE_WEIGHT = "criteria/TOGGLE_WEIGHT";
+export const SET_WEIGHT = "criteria/SET_WEIGHT";
 
 interface InsertWeightAction {
   type: typeof INSERT_WEIGHT;
@@ -27,10 +28,18 @@ interface ToggleWeightAction {
   };
 }
 
-export type CriteriaActionTypes = 
+interface SetWeightAction {
+  type: typeof SET_WEIGHT;
+  payload: {
+    criterionValue: CriterionValueInterface
+  }
+}
+
+export type CriteriaActionTypes =
   | InsertWeightAction
   | DeleteWeightAction
   | ToggleWeightAction
+  | SetWeightAction
   ;
 
 // actions
@@ -53,12 +62,21 @@ function deleteWeight() {
 
 function toggleWeight(cv: CriterionValueInterface) {
   console.log("CALLED Toggle Weight", cv, CriterionValueStatus, Object.values(CriterionValueStatus));
-  
-  const nextStatus = (cv.status + 1) % (Object.keys(CriterionValueStatus).length / 2) + 1 ;
+
+  const nextStatus = (cv.status + 1) % (Object.keys(CriterionValueStatus).length / 2) + 1;
   cv.status = nextStatus;
-console.log("toggle status => ", cv.status, nextStatus);
+  console.log("toggle status => ", cv.status, nextStatus);
   return {
     type: TOGGLE_WEIGHT,
+    payload: {
+      criterionValue: cv
+    }
+  }
+}
+
+function setWeight(cv: CriterionValueInterface) {
+  return {
+    type: SET_WEIGHT,
     payload: {
       criterionValue: cv
     }
@@ -68,7 +86,8 @@ console.log("toggle status => ", cv.status, nextStatus);
 export const criteriaActionCreators = {
   insertWeight,
   deleteWeight,
-  toggleWeight
+  toggleWeight,
+  setWeight
 }
 
 // reducers
@@ -98,8 +117,23 @@ export function criteriaReducer(
             [action.payload.criterionValue.criterion!.id]: {
               values: {
                 [action.payload.criterionValue.id]: {
-                  status: {$set: action.payload.criterionValue.status}
-                }  
+                  status: { $set: action.payload.criterionValue.status }
+                }
+              }
+            }
+          }
+        )
+      }
+    case SET_WEIGHT:
+      return {
+        criteria: update(
+          state.criteria,
+          {
+            [action.payload.criterionValue.criterion!.id]: {
+              values: {
+                [action.payload.criterionValue.id]: {
+                  weight: { $set: action.payload.criterionValue.weight }
+                }
               }
             }
           }

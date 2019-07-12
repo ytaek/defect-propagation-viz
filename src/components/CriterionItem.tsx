@@ -9,6 +9,7 @@ import { CriterionValueWeightControl } from './CriterionValueWeightControl';
 interface Props {
   criterion: CriterionInterface;
   onToggleWeight(cv: CriterionValueInterface): void;
+  onSetWeight(cv:CriterionValueInterface, weight: number): void;
 }
 
 export class CriterionItem extends React.Component<Props> {
@@ -25,6 +26,7 @@ export class CriterionItem extends React.Component<Props> {
               <CriterionValueWeightControl 
                 key={i}
                 onToggleWeight={this.props.onToggleWeight}
+                onSetWeight={this.props.onSetWeight}
                 criterionValue={cv}/>
             )
           )}
