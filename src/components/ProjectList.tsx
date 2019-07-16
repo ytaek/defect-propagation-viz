@@ -22,10 +22,11 @@ class ProjectList extends React.Component<Props> {
     const nonCandidateCriterionValueList = this.getCriterionValueListByStatus(CriterionValueStatus.NONCAND);
     const weightCriterionValueList = this.getCriterionValueListByStatus(CriterionValueStatus.WEIGHT);
 
-    console.log("ProjectList", this.props);
+console.log("ProjectList", this.props);
+console.log("CAND = ", candidateCriterionValueList)
     const { projects } = this.props;
 
-    projects.sort( (a, b) => (b.score - a.score) );
+    // projects.sort( (a, b) => (b.score - a.score) );
 
     return (
       <div>

@@ -16,8 +16,8 @@ export class ProjectItem extends React.Component<Props> {
     const { project, criteria } = this.props;
 
     const candidates = this.props.criteria.map( (c) => {
-      const cvList = this.props.candidateCriterionValueList.filter( cv => cv.criterion === c).map( d => d.name);
-      const ncvList = this.props.nonCandidateCriterionValueList.filter( cv => cv.criterion === c).map( d => d.name);
+      const cvList = this.props.candidateCriterionValueList.filter( cv => cv.criterion!.name === c.name).map( d => d.name);
+      const ncvList = this.props.nonCandidateCriterionValueList.filter( cv => cv.criterion!.name === c.name).map( d => d.name);
 
       if (cvList.includes(project.attributes[c.name])) {return "O";}
       else if (ncvList.includes(project.attributes[c.name])) {return "X";}
@@ -47,7 +47,7 @@ export class ProjectItem extends React.Component<Props> {
           {candidates.map( (c, i) => (<b key={i}>{c} </b>))}
         </div>
         <div className="score">
-          [ {project.score} ]
+          [ {project.score.toFixed(2)} ]
         </div>
         {
           // criteria.filter(c => c.weight !== 0).map( (c, i) => (
