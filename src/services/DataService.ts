@@ -80,7 +80,7 @@ export class DataService {
         id: ci,
         name: d.name,
         values: cValues,
-        weight: 0
+        weight: 1
       };
       cValues.forEach(cv => (cv.criterion = criterion));
 

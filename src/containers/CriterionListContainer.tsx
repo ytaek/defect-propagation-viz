@@ -21,34 +21,31 @@ class CriterionListContainer extends React.Component<Props> {
     return (
       <CriterionList
         criteria={this.props.criteria}
-        onInsertWeight={this.onInsertWeight}
-        onDeleteWeight={this.onDeleteWeight}
-        onToggleWeight={this.onToggleWeight}
         onSetWeight={this.onSetWeight}
+        onValueToggleWeight={this.onValueToggleWeight}
+        onValueSetWeight={this.onValueSetWeight}
       />
     );
   }
 
-  onInsertWeight = (): void => {
-    const { criteriaActions } = this.props;
-    criteriaActions.insertWeight();
-  }
-  onDeleteWeight = (): void => {
-    const { criteriaActions } = this.props;
-    criteriaActions.deleteWeight();
-  }
-
-  onToggleWeight = (cv: CriterionValueInterface): void => {
-    console.log("Container toggle called")
+  onSetWeight = (c: CriterionInterface, weight: number): void => {
     const { criteria, criteriaActions, projectsActions } = this.props;
-    criteriaActions.toggleWeight(cv);
+    c.weight = weight;
+    criteriaActions.setWeight(c);
     projectsActions.calculateScore(criteria);
   }
 
-  onSetWeight = (cv: CriterionValueInterface, weight: number): void => {
+  onValueToggleWeight = (cv: CriterionValueInterface): void => {
+    console.log("Container toggle called")
+    const { criteria, criteriaActions, projectsActions } = this.props;
+    criteriaActions.valueToggleWeight(cv);
+    projectsActions.calculateScore(criteria);
+  }
+
+  onValueSetWeight = (cv: CriterionValueInterface, weight: number): void => {
     const { criteria, criteriaActions, projectsActions } = this.props;
     cv.weight = weight;
-    criteriaActions.setWeight(cv);
+    criteriaActions.valueSetWeight(cv);
     projectsActions.calculateScore(criteria);
   }
 }

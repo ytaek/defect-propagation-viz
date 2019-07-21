@@ -1,82 +1,77 @@
 import { CriterionInterface, CriterionValueInterface, CriterionValueStatus } from 'src/services/DataService';
 import update from 'react-addons-update';
+import { csv } from 'd3';
 
 // types
 export interface CriteriaState {
   criteria: CriterionInterface[];
 }
 
-export const INSERT_WEIGHT = "criteria/INSERT_WEIGHT";
-export const DELETE_WEIGHT = "criteria/DELETE_WEIGHT";
-export const TOGGLE_WEIGHT = "criteria/TOGGLE_WEIGHT";
 export const SET_WEIGHT = "criteria/SET_WEIGHT";
+export const VALUE_TOGGLE_WEIGHT = "criteria/VALUE_TOGGLE_WEIGHT";
+export const VALUE_SET_WEIGHT = "criteria/VALUE_SET_WEIGHT";
 
-interface InsertWeightAction {
-  type: typeof INSERT_WEIGHT;
-  payload: number;
+interface SetWeightAction {
+  type: typeof SET_WEIGHT;
+  payload: {
+    criterion: CriterionInterface
+  }
 }
 
-interface DeleteWeightAction {
-  type: typeof DELETE_WEIGHT;
-  payload: number;
-}
-
-interface ToggleWeightAction {
-  type: typeof TOGGLE_WEIGHT;
+interface ValueToggleWeightAction {
+  type: typeof VALUE_TOGGLE_WEIGHT;
   payload: {
     criterionValue: CriterionValueInterface
   };
 }
 
-interface SetWeightAction {
-  type: typeof SET_WEIGHT;
+interface ValueSetWeightAction {
+  type: typeof VALUE_SET_WEIGHT;
   payload: {
     criterionValue: CriterionValueInterface
   }
 }
 
+
 export type CriteriaActionTypes =
-  | InsertWeightAction
-  | DeleteWeightAction
-  | ToggleWeightAction
-  | SetWeightAction
+  SetWeightAction
+  | ValueToggleWeightAction
+  | ValueSetWeightAction
   ;
 
 // actions
 
-function insertWeight() {
-  console.log("CALLED INSERT WEIGHT");
+function setWeight(c: CriterionInterface) {
   return {
-    type: INSERT_WEIGHT,
-    payload: {}
-  };
+    type: SET_WEIGHT,
+    payload: {
+      criterion: c
+    }
+  }
 }
 
-function deleteWeight() {
-  console.log("CALLED DELETE WEIGHT");
-  return {
-    type: DELETE_WEIGHT,
-    payload: {}
-  };
-}
-
-function toggleWeight(cv: CriterionValueInterface) {
-  console.log("CALLED Toggle Weight", cv, CriterionValueStatus, Object.values(CriterionValueStatus));
-
+function valueToggleWeight(cv: CriterionValueInterface) {
   const nextStatus = (cv.status + 1) % (Object.keys(CriterionValueStatus).length / 2) + 1;
   cv.status = nextStatus;
-  console.log("toggle status => ", cv.status, nextStatus);
+  if (cv.status !== CriterionValueStatus.WEIGHT) {
+    cv.weight = 0;
+  }
+  // test code
+  else {
+    console.log("UNEXPECTED ROUTE");
+  }
+  
   return {
-    type: TOGGLE_WEIGHT,
+    type: VALUE_TOGGLE_WEIGHT,
     payload: {
       criterionValue: cv
     }
   }
 }
 
-function setWeight(cv: CriterionValueInterface) {
+function valueSetWeight(cv: CriterionValueInterface) {
   return {
-    type: SET_WEIGHT,
+    type: VALUE_SET_WEIGHT,
     payload: {
       criterionValue: cv
     }
@@ -84,10 +79,9 @@ function setWeight(cv: CriterionValueInterface) {
 }
 
 export const criteriaActionCreators = {
-  insertWeight,
-  deleteWeight,
-  toggleWeight,
-  setWeight
+  setWeight,
+  valueToggleWeight,
+  valueSetWeight
 }
 
 // reducers
@@ -101,15 +95,19 @@ export function criteriaReducer(
   action: CriteriaActionTypes
 ): CriteriaState {
   switch (action.type) {
-    case INSERT_WEIGHT:
+    case SET_WEIGHT:
+console.log("SET_WEIGHT!!")
       return {
-        criteria: [...state.criteria]
-      };
-    case DELETE_WEIGHT:
-      return {
-        criteria: [...state.criteria]
-      };
-    case TOGGLE_WEIGHT:
+        criteria: update(
+          state.criteria,
+          {
+            [action.payload.criterion.id]: {
+              weight: { $set: action.payload.criterion.weight}
+            }
+          }
+        )
+      }
+    case VALUE_TOGGLE_WEIGHT:
       return {
         criteria: update(
           state.criteria,
@@ -117,14 +115,15 @@ export function criteriaReducer(
             [action.payload.criterionValue.criterion!.id]: {
               values: {
                 [action.payload.criterionValue.id]: {
-                  status: { $set: action.payload.criterionValue.status }
+                  status: { $set: action.payload.criterionValue.status },
+                  weight: { $set: action.payload.criterionValue.weight }
                 }
               }
             }
           }
         )
       }
-    case SET_WEIGHT:
+    case VALUE_SET_WEIGHT:
       return {
         criteria: update(
           state.criteria,

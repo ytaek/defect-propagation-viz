@@ -5,11 +5,13 @@ import {
   CriterionValueInterface
 } from "../services/DataService";
 import { CriterionValueWeightControl } from './CriterionValueWeightControl';
+import { CriterionWeightControl } from './CriterionWeightControl';
 
 interface Props {
   criterion: CriterionInterface;
-  onToggleWeight(cv: CriterionValueInterface): void;
-  onSetWeight(cv:CriterionValueInterface, weight: number): void;
+  onSetWeight(c: CriterionInterface, weight: number): void;
+  onValueToggleWeight(cv: CriterionValueInterface): void;
+  onValueSetWeight(cv:CriterionValueInterface, weight: number): void;
 }
 
 export class CriterionItem extends React.Component<Props> {
@@ -19,14 +21,17 @@ export class CriterionItem extends React.Component<Props> {
       <Row className="criterion-row">
         <Col xs={3} className="criterion-name">
           ({this.props.criterion.id}) {this.props.criterion.name}
+          <CriterionWeightControl
+            onSetWeight={this.props.onSetWeight}
+            criterion={this.props.criterion}/>
         </Col>
         <Col xs={9} className="criterion-category-list-container">
           {this.props.criterion.values.map(
             (cv: CriterionValueInterface, i: number) => (
               <CriterionValueWeightControl 
                 key={i}
-                onToggleWeight={this.props.onToggleWeight}
-                onSetWeight={this.props.onSetWeight}
+                onToggleWeight={this.props.onValueToggleWeight}
+                onSetWeight={this.props.onValueSetWeight}
                 criterionValue={cv}/>
             )
           )}
@@ -36,7 +41,7 @@ export class CriterionItem extends React.Component<Props> {
   }
 
   onCategoryClicked = (cv: any) => {
-    console.log(cv)
+    console.log(cv);
   }
 }
 

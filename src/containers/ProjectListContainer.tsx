@@ -28,7 +28,7 @@ class ProjectListContainer extends React.Component<Props> {
 console.log("Container render reloaded!!", this.props.criteria)
         return (
             <div>
-                <button onClick={this.test} >test</button>
+                {/* <button onClick={this.test} >test</button> */}
                 <ProjectList
                     projects={this.props.projects}
                     criteria={this.props.criteria}

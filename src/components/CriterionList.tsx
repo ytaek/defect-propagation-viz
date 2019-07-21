@@ -5,10 +5,9 @@ import {Container} from 'react-bootstrap';
 
 interface Props {
     criteria: CriterionInterface[];
-    onInsertWeight(): void;
-    onDeleteWeight(): void;
-    onToggleWeight(cv: CriterionValueInterface): void;
-    onSetWeight(cv:CriterionValueInterface, weight: number): void;
+    onSetWeight(c:CriterionInterface, weight: number): void;
+    onValueToggleWeight(cv: CriterionValueInterface): void;
+    onValueSetWeight(cv:CriterionValueInterface, weight: number): void;
 }
 
 class CriterionList extends React.Component<Props> {
@@ -22,9 +21,10 @@ class CriterionList extends React.Component<Props> {
           {
             this.props.criteria.map((d, i) => 
               <CriterionItem 
-                criterion={d} 
-                onToggleWeight={this.props.onToggleWeight}
+                criterion={d}
                 onSetWeight={this.props.onSetWeight}
+                onValueToggleWeight={this.props.onValueToggleWeight}
+                onValueSetWeight={this.props.onValueSetWeight}
                 key={i}/>)
           }
         </Container>

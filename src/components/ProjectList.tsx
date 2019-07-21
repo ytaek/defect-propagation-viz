@@ -2,6 +2,7 @@ import * as React from 'react';
 import { ProjectInterface, CriterionValueInterface, CriterionValueStatus, CriterionInterface } from 'src/services/DataService';
 import ProjectItem from './ProjectItem';
 import './project.css';
+import * as d3 from "d3";
 
 interface Props {
   projects: ProjectInterface[];
@@ -24,14 +25,16 @@ class ProjectList extends React.Component<Props> {
 
 console.log("ProjectList", this.props);
 console.log("CAND = ", candidateCriterionValueList)
-    const { projects } = this.props;
+    const { projects, criteria } = this.props;
 
+    const colors = d3.schemeDark2;
+    
     // projects.sort( (a, b) => (b.score - a.score) );
 
     return (
       <div>
-        <div><button onClick={this.props.onOrder}>TEST</button></div>
-        <div><button onClick={this.test2}>TEST#2</button></div>
+        {/* <div><button onClick={this.props.onOrder}>TEST</button></div>
+        <div><button onClick={this.test2}>TEST#2</button></div> */}
         <div>project List</div>
         {/* <div className="flex-container flex-align-items-center">
           <label className="name">NAME</label>
@@ -62,9 +65,18 @@ console.log("CAND = ", candidateCriterionValueList)
           <div className="score">
             SCORES
           </div>
-          <div className="attributes">
-            ATTRIBUTES
-          </div>
+          {
+            criteria.map( (c, i) => (
+              <div key={i} className="attributes">
+                <div style={{
+                    width:100*c.weight,
+                    backgroundColor: colors[i]
+                  }}>
+                  {c.weight !== 0 ? c.name : ""}
+                </div>
+              </div>
+            ))
+          }
         </div>
         {
           // sorting 
@@ -72,7 +84,7 @@ console.log("CAND = ", candidateCriterionValueList)
           projects.map( (prj: ProjectInterface, i: number) => 
             <ProjectItem 
               project={prj}
-              criteria={this.props.criteria}
+              criteria={criteria}
               candidateCriterionValueList={candidateCriterionValueList}
               nonCandidateCriterionValueList={nonCandidateCriterionValueList}
               weightCriterionValueList={weightCriterionValueList}

@@ -26,10 +26,10 @@ export class ProjectItem extends React.Component<Props> {
 
     const criterionWeights = criteria.map(c => {
       const value = project.attributes[c.name];
-      return c.values.filter(cv => cv.name === value)[0].weight;
+      return c.values.filter(cv => cv.name === value)[0].weight * c.weight;
     });
 
-    const colos = d3.schemeDark2;
+    const colors = d3.schemeDark2;
 
     return (
       <div className="flex-container flex-align-items-center">
@@ -55,7 +55,7 @@ export class ProjectItem extends React.Component<Props> {
             <div key={i} className="attributes">
               <div style={{
                   width:100*criterionWeights[i],
-                  backgroundColor: colos[i]
+                  backgroundColor: colors[i]
                 }}>
                 {criterionWeights[i] !== 0 ? project.attributes[c.name] : ""}
               </div>

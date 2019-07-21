@@ -162,3 +162,18 @@
     overflow-y: auto;
   }
 }
+
+.criterion-weight-slider {
+  flex: 1;
+  background: #fafafa;
+  height: 16px;
+  margin-left: 1px;
+  border: 1px solid #dedede;
+  position: relative;
+
+  .slider-bar {
+    position: absolute;
+    background: #a0a0a0;
+    height: 100%;
+  }
+}
