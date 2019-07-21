@@ -1,5 +1,6 @@
 import * as React from "react";
 import { CriterionInterface } from 'src/services/DataService';
+import * as d3 from "d3";
 
 interface Props {
   criterion: CriterionInterface;
@@ -56,10 +57,12 @@ export class CriterionWeightControl extends React.Component<Props, State> {
   }
 
   render() {
+    const colors = d3.schemePastel1;
     let weightView
     weightView = <div className="criterion-weight-slider" onMouseDown={this.onMouseDown}>
         <div className="slider-bar" style={{
-          width: (this.state.immediateWeight || this.props.criterion.weight) * 100 + '%'
+          width: (this.state.immediateWeight || this.props.criterion.weight) * 100 + '%',
+          backgroundColor: (colors[this.props.criterion.id])
         }} />
       </div>
 

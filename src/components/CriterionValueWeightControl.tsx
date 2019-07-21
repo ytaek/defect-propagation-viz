@@ -1,5 +1,6 @@
 import * as React from "react";
 import { CriterionInterface, CriterionValueInterface, CriterionValueStatus } from 'src/services/DataService';
+import * as d3 from "d3";
 
 interface Props {
   criterionValue: CriterionValueInterface;
@@ -48,9 +49,9 @@ export class CriterionValueWeightControl extends React.Component<Props, State> {
   }
 
   onMouseUp(event: any) {
-    this.onMouseMove(event)
-    this.props.onSetWeight(this.props.criterionValue, this.state.immediateWeight!)
-    this.setState({ immediateWeight: null })
+    this.onMouseMove(event);
+    this.props.onSetWeight(this.props.criterionValue, this.state.immediateWeight!);
+    this.setState({ immediateWeight: null });
 
     window.removeEventListener("mouseup", this.onMouseUp, false);
     window.removeEventListener("mousemove", this.onMouseMove, false);
@@ -64,11 +65,14 @@ export class CriterionValueWeightControl extends React.Component<Props, State> {
   }
 
   render() {
-    let weightView
+    const colors = d3.schemePastel1;
+
+    let weightView;
     if (this.props.criterionValue.status === CriterionValueStatus.WEIGHT) {
       weightView = <div className="weight-slider" onMouseDown={this.onMouseDown}>
         <div className="slider-bar" style={{
-          width: (this.state.immediateWeight || this.props.criterionValue.weight) * 100 + '%'
+          width: (this.state.immediateWeight || this.props.criterionValue.weight) * 100 + '%',
+          backgroundColor: (colors[this.props.criterionValue.criterion!.id])
         }} />
       </div>
     }

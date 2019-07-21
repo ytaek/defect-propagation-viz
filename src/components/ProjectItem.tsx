@@ -29,7 +29,7 @@ export class ProjectItem extends React.Component<Props> {
       return c.values.filter(cv => cv.name === value)[0].weight * c.weight;
     });
 
-    const colors = d3.schemeDark2;
+    const colors = d3.schemePastel1;
 
     return (
       <div className="flex-container flex-align-items-center">

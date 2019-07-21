@@ -27,7 +27,7 @@ console.log("ProjectList", this.props);
 console.log("CAND = ", candidateCriterionValueList)
     const { projects, criteria } = this.props;
 
-    const colors = d3.schemeDark2;
+    const colors = d3.schemePastel1;
     
     // projects.sort( (a, b) => (b.score - a.score) );
 
