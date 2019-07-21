@@ -11,7 +11,7 @@
 
 .candidate-ox {
   font-size: 8px;
-  width: 60px; }
+  width: 70px; }
 
 .score {
   font-size: 8px;
@@ -22,3 +22,11 @@
   padding-top: 1px;
   font-size: 8px;
   text-align: center; }
+
+.separator {
+  width: 100%;
+  background-color: #eeeeee;
+  height: 1px; }
+
+.grey-zone {
+  background-color: #dddddd; }

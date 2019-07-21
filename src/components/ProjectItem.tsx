@@ -6,30 +6,31 @@ import { color } from 'd3';
 interface Props {
   project: ProjectInterface;
   criteria: CriterionInterface[];
-  candidateCriterionValueList: CriterionValueInterface[];
-  nonCandidateCriterionValueList: CriterionValueInterface[];
-  weightCriterionValueList: CriterionValueInterface[];
+  // candidateCriterionValueList: CriterionValueInterface[];
+  // nonCandidateCriterionValueList: CriterionValueInterface[];
+  // weightCriterionValueList: CriterionValueInterface[];
 }
 
 export class ProjectItem extends React.Component<Props> {
   render() {
     const { project, criteria } = this.props;
 
-    const candidates = this.props.criteria.map( (c) => {
-      const cvList = this.props.candidateCriterionValueList.filter( cv => cv.criterion!.name === c.name).map( d => d.name);
-      const ncvList = this.props.nonCandidateCriterionValueList.filter( cv => cv.criterion!.name === c.name).map( d => d.name);
+    // const candidates = this.props.criteria.map( (c) => {
+    //   const cvList = this.props.candidateCriterionValueList.filter( cv => cv.criterion!.name === c.name).map( d => d.name);
+    //   const ncvList = this.props.nonCandidateCriterionValueList.filter( cv => cv.criterion!.name === c.name).map( d => d.name);
 
-      if (cvList.includes(project.attributes[c.name])) {return "O";}
-      else if (ncvList.includes(project.attributes[c.name])) {return "X";}
-      else {return "-";}
-    });
+    //   if (cvList.includes(project.attributes[c.name])) {return "O";}
+    //   else if (ncvList.includes(project.attributes[c.name])) {return "X";}
+    //   else {return "-";}
+    // });
 
     const criterionWeights = criteria.map(c => {
       const value = project.attributes[c.name];
       return c.values.filter(cv => cv.name === value)[0].weight * c.weight;
     });
 
-    const colors = d3.schemePastel1;
+    const colors = d3.schemePastel2;
+    const darkColors = d3.schemeSet2;
 
     return (
       <div className="flex-container flex-align-items-center">
@@ -44,7 +45,7 @@ export class ProjectItem extends React.Component<Props> {
           ))
         } */}
         <div className="candidate-ox">
-          {candidates.map( (c, i) => (<b key={i}>{c} </b>))}
+          {project.candidateOXList!.map( (c, i) => (<b key={i} style={{color:darkColors[i]}}>{c} </b>))}
         </div>
         <div className="score">
           [ {project.score.toFixed(2)} ]

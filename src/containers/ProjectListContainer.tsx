@@ -1,13 +1,13 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { ProjectInterface, CriterionInterface, CriterionValueStatus, CriterionValueInterface } from 'src/services/DataService';
-import { projectsActionCreators } from 'src/redux/modules/projects';
+import { projectsActionCreators, ProjectsState } from 'src/redux/modules/projects';
 import { bindActionCreators } from 'redux';
 import { StoreState } from 'src/redux/modules';
 import ProjectList from 'src/components/ProjectList';
 
 interface Props {
-    projects: ProjectInterface[];
+    projectState: ProjectsState;
     criteria: CriterionInterface[];
     projectsActions: typeof projectsActionCreators; 
 }
@@ -30,7 +30,7 @@ console.log("Container render reloaded!!", this.props.criteria)
             <div>
                 {/* <button onClick={this.test} >test</button> */}
                 <ProjectList
-                    projects={this.props.projects}
+                    projectState={this.props.projectState}
                     criteria={this.props.criteria}
                     onOrder={this.onOrder}
                 />
@@ -70,7 +70,7 @@ console.log("onOrder called");
 }
 
 const mapStateToPros = (state: StoreState) => ({
-    projects: state.projectsState.projects,
+    projectState: state.projectsState,
     criteria: state.criteriaState.criteria
 });
 

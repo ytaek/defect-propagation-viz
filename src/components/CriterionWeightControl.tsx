@@ -57,8 +57,8 @@ export class CriterionWeightControl extends React.Component<Props, State> {
   }
 
   render() {
-    const colors = d3.schemePastel1;
-    let weightView
+    const colors = d3.schemePastel2;
+    let weightView;
     weightView = <div className="criterion-weight-slider" onMouseDown={this.onMouseDown}>
         <div className="slider-bar" style={{
           width: (this.state.immediateWeight || this.props.criterion.weight) * 100 + '%',

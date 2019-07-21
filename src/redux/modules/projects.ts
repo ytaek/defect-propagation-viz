@@ -3,6 +3,7 @@ import { ProjectInterface, CriterionInterface, ProjectAttributes, CriterionValue
 // types
 export interface ProjectsState {
   projects: ProjectInterface[];
+  thresholdScore: number;
 }
 
 export const CALCULATE_SCORE = "project/CALCULATE_SCORE";
@@ -39,6 +40,7 @@ export const projectsActionCreators = {
 // reducers
 
 const initialState: ProjectsState = {
+  thresholdScore: 0,
   projects: []
 }
 
@@ -62,6 +64,7 @@ export function projectReducer(
         return proj;
       });
       return {
+        thresholdScore: state.thresholdScore,
         projects: newProjects
       };
     default:

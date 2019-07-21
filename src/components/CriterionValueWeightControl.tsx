@@ -65,7 +65,7 @@ export class CriterionValueWeightControl extends React.Component<Props, State> {
   }
 
   render() {
-    const colors = d3.schemePastel1;
+    const colors = d3.schemePastel2;
 
     let weightView;
     if (this.props.criterionValue.status === CriterionValueStatus.WEIGHT) {

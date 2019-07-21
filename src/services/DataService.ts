@@ -27,8 +27,11 @@ export interface CriterionInterface {
 export interface ProjectInterface {
   code: string;
   score: number;
-  isPropCandidate: boolean;
+  isCandidate?: boolean;
   attributes: any;
+  candidateStatus: ProjectCandidateStatus;
+  candidateRuleScore?: number;
+  candidateOXList?: string[]
 }
 
 export class ProjectAttributes {
@@ -56,6 +59,12 @@ export class ProjectAttributes {
     this.nandCell = "";
     this.nandDesign = "";
   }
+}
+
+export enum ProjectCandidateStatus {
+  RULE = "RULE",
+  CONFLICT = "CONFLICT",
+  GREY = "GREY"
 }
 
 export class DataService {
@@ -95,7 +104,7 @@ console.log("keys", Object.keys(new ProjectAttributes()));
       return {
         code: d.code,
         score: 0,
-        isPropCandidate: false,
+        candidateStatus: ProjectCandidateStatus.GREY,
         attributes: prjAttr
       };
     });
