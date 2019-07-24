@@ -64,6 +64,7 @@ class ProjectList extends React.Component<Props> {
     const candProjectsByRule = projects.filter(p => (
       p.candidateStatus === ProjectCandidateStatus.RULE
       && p.isCandidate))
+      .sort((a, b) => (b.score - a.score))
       .sort((a, b) => (b.candidateRuleScore! - a.candidateRuleScore!))
       .map(d => d);
     
@@ -75,11 +76,11 @@ class ProjectList extends React.Component<Props> {
     const nonCandProjectsByRule = projects.filter(p => (
       p.candidateStatus === ProjectCandidateStatus.RULE
       && !p.isCandidate))
+      .sort((a, b) => (b.score - a.score))
       .sort((a, b) => (b.candidateRuleScore! - a.candidateRuleScore!))
       .map(d => d);
     
-    console.log("LENGTH = ", (candProjectsByRule.length + greyProjects.length + nonCandProjectsByRule.length))
-    // projects.sort( (a, b) => (b.score - a.score) );
+    console.log(candProjectsByRule, greyProjects, nonCandProjectsByRule);
 
     return (
       <div>
@@ -112,13 +113,17 @@ class ProjectList extends React.Component<Props> {
             ))}
           </div>
           <div className="score">
-            <b>SCORES</b>
+            <b>SCORE BAR<br/>(Min:-100, Max:100)</b>
           </div>
+          <div className="bars">
           {
             criteria.map( (c, i) => (
               <div key={i} className="attributes">
                 <div style={{
-                    width:100*c.weight,
+                    margin: "2px",
+                    fontWeight:"bold",
+                    textAlign:"center",
+                    width:60*c.weight,
                     backgroundColor: colors[i]
                   }}>
                   {c.weight !== 0 ? c.name : ""}
@@ -126,6 +131,7 @@ class ProjectList extends React.Component<Props> {
               </div>
             ))
           }
+          </div>
         </div>
         <div>
         {
@@ -140,7 +146,7 @@ class ProjectList extends React.Component<Props> {
         }
         </div>
         <div className="separator" />
-        <div>
+        <div className="grey-zone">
         {
           // sorting 
           // cand - grey - noncand

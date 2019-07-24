@@ -61,7 +61,7 @@ export class CriterionValueWeightControl extends React.Component<Props, State> {
 
     const deltaX = event.clientX - this.mouseDownClientX
     console.log("deltaX: ", deltaX)
-    this.setState({ immediateWeight: Math.min(1, Math.max(0, (this.mouseDownSliderX + deltaX) / this.sliderWidth)) })
+    this.setState({ immediateWeight: Math.min(1, Math.max(0, (this.mouseDownSliderX + deltaX) / this.sliderWidth))*2 -1 })
   }
 
   render() {
@@ -71,7 +71,7 @@ export class CriterionValueWeightControl extends React.Component<Props, State> {
     if (this.props.criterionValue.status === CriterionValueStatus.WEIGHT) {
       weightView = <div className="weight-slider" onMouseDown={this.onMouseDown}>
         <div className="slider-bar" style={{
-          width: (this.state.immediateWeight || this.props.criterionValue.weight) * 100 + '%',
+          width: ((this.state.immediateWeight || this.props.criterionValue.weight) / 2 + 0.5) * 100 + '%',
           backgroundColor: (colors[this.props.criterionValue.criterion!.id])
         }} />
       </div>

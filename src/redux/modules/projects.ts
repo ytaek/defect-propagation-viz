@@ -51,7 +51,6 @@ export function projectReducer(
   switch (action.type) {
     case CALCULATE_SCORE:
       const newProjects = state.projects.map( (proj) => {
-
         const score = Object.keys(new ProjectAttributes()).reduce( (prev: number, name: string) => {
           const cv = action.payload.criteria.filter(d => (d.name === name))[0]
                     .values.filter(d => d.name === proj.attributes[name])[0];
@@ -59,7 +58,7 @@ export function projectReducer(
             prev += cv.weight;
           }
           return prev;
-        }, 0);
+        }, 0) / action.payload.criteria.length;
         proj.score = score;
         return proj;
       });

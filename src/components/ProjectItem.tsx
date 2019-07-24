@@ -48,20 +48,59 @@ export class ProjectItem extends React.Component<Props> {
           {project.candidateOXList!.map( (c, i) => (<b key={i} style={{color:darkColors[i]}}>{c} </b>))}
         </div>
         <div className="score">
-          [ {project.score.toFixed(2)} ]
-        </div>
+          <div style={{
+            width: 150 * Math.abs(project.score),
+            backgroundColor: "#cccccc",
+            height: "13px"
+          }}>{(project.score * 100).toFixed(2)}</div>
+        </div> 
+        <div className="candidate-bars">
+        +
         {
-          // criteria.filter(c => c.weight !== 0).map( (c, i) => (
-            criteria.map( (c, i) => (
+          criteria.filter( (c, i) => criterionWeights[c.id] > 0).map( (c, i) => (
+          // criteria.map( (c, i) => (
             <div key={i} className="attributes">
-              <div style={{
-                  width:100*criterionWeights[i],
-                  backgroundColor: colors[i]
+              <div className="weight-bar" style={{
+                  width: 50*criterionWeights[c.id],
+                  backgroundColor: colors[c.id],
+                  height: "13px"
                 }}>
-                {criterionWeights[i] !== 0 ? project.attributes[c.name] : ""}
+                {criterionWeights[c.id] !== 0 ? project.attributes[c.name] : ""}
+              </div>
+            </div>
+          )) 
+        }
+        </div>
+        <div className="cand-separator"/>
+        <div className="noncandidate-bars">
+        {
+          criteria.filter( (c, i) => criterionWeights[c.id] < 0).map( (c, i) => (
+            // criteria.map( (c) => (
+            <div key={i} className="attributes">
+              <div className="weight-bar" style={{
+                  width: 50*(-1)*criterionWeights[c.id],
+                  backgroundColor: colors[c.id],
+                  height: "13px"
+                }}> 
+                {criterionWeights[c.id] !== 0 ? project.attributes[c.name] : ""}
               </div>
             </div>
           ))
+        }
+        -
+        </div>
+        {
+          // // criteria.filter(c => c.weight !== 0).map( (c, i) => (
+          //   criteria.map( (c, i) => (
+          //   <div key={i} className="attributes">
+          //     <div style={{
+          //         width:100*criterionWeights[i],
+          //         backgroundColor: colors[i]
+          //       }}>
+          //       {criterionWeights[i] !== 0 ? project.attributes[c.name] : ""}
+          //     </div>
+          //   </div>
+          // ))
           // Object.keys(project.attributes).map( (key: string, i: number) => 
           //     <div key ={i}>
           //       <div>{project.attributes[key]}({})</div>
