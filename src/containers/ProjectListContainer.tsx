@@ -1,6 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { ProjectInterface, CriterionInterface, CriterionValueStatus, CriterionValueInterface } from 'src/services/DataService';
+import { CriterionInterface, CriterionValueStatus, CriterionValueInterface } from 'src/services/DataService';
 import { projectsActionCreators, ProjectsState } from 'src/redux/modules/projects';
 import { bindActionCreators } from 'redux';
 import { StoreState } from 'src/redux/modules';
@@ -24,18 +24,27 @@ class ProjectListContainer extends React.Component<Props> {
 
     render() {
         const { projectsActions, criteria } = this.props;
-        // projectsActions.calculateScore(criteria);
 console.log("Container render reloaded!!", this.props.criteria)
         return (
             <div>
-                {/* <button onClick={this.test} >test</button> */}
+                <button onClick={this.test} >test</button>
                 <ProjectList
-                    projectState={this.props.projectState}
+                    projects={this.props.projectState}
                     criteria={this.props.criteria}
-                    onOrder={this.onOrder}
+                    // onOrder={this.onOrder}
+                    onSetCandThreshold={this.onSetCandThreshold}
+                    onSetNonCandThreshold={this.onSetNonCandThreshold}
                 />
             </div>
         );
+    }
+
+    onSetCandThreshold = (th: number): void => {
+        projectsActionCreators.setCandThreshold(th);
+    }
+
+    onSetNonCandThreshold = (th: number): void => {
+        projectsActionCreators.setNonCandThreshold(th);
     }
 
 
@@ -47,7 +56,6 @@ console.log("Container render reloaded!!", this.props.criteria)
     }
 
     onOrder = (): void => {
-console.log("onOrder called");
         // test
         this.props.criteria[0].values[0].status = CriterionValueStatus.CAND;
         this.props.criteria[0].values[1].status = CriterionValueStatus.CAND;
