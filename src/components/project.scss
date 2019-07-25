@@ -1,95 +1,179 @@
+$project_score_width: 150px;
+
+$project_name_width: 100px;
+$project_ox_width: 70px;
+
+$score_thresholder_left_space: $project_name_width+$project_ox_width;
+
 .classification-col {
-    width: 50px;
-    font-size: 7px;
+  width: 50px;
+  font-size: 7px;
 }
 
 .status-value {
-    font-size: 7px;
-    width: 80px;
+  font-size: 7px;
+  width: 80px;
 }
+
 .criterionValueBar {
-    width: 100px;
+  width: 100px;
 }
+
 .project-name {
-    font-size: 8px;
-    width: 100px;
+  font-size: 8px;
+  width: $project_name_width;
+  flex-shrink: 0;
 }
+
 .candidate-ox {
-    font-size: 8px;
-    width: 70px;
+  font-size: 8px;
+  width: $project_ox_width;
+  flex-shrink: 0;
 }
+
 .score {
-    display: flex;
-    justify-content: flex-start;
-    font-size: 8px;
-    width: 150px;
+  display: flex;
+  justify-content: flex-start;
+  font-size: 8px;
+  width: $project_score_width;
+  flex-shrink: 0;
 }
 
 .attributes {
-    padding-bottom: 1px;
-    padding-top: 1px;
-    font-size: 6px;
-    // text-align: center;
+  padding-bottom: 1px;
+  padding-top: 1px;
+  font-size: 6px;
+  // text-align: center;
 }
 
 .separator {
-    width: 100%;
-    background-color: #eeeeee;
-    height: 5px;
+  width: 100%;
+  background-color: #FFF;
+  padding-left: $score_thresholder_left_space;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  position: relative;
+  box-shadow: 0px 2px 8px #00000030;
+
+  .slider-title {
+    font-size: 0.6rem;
+  }
+
+  .slider-container {
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+    background: lightgray;
+    width: $project_score_width;
+    height: 30px;
+    border: 1px solid #575757;
+    border-top: none;
+    border-right: none;
+    position: relative;
+
+    .drag-region{
+      position: absolute;
+      left:0;
+      top:0;
+      right:0;
+      bottom:0;
+    }
+
+    .indicator-text {
+      font-size: 0.5rem;
+      position: absolute;
+      bottom: -8px;
+
+      &.min-score {
+        transform: translate(-50%, 100%);
+      }
+
+      &.max-score {
+        transform: translate(50%, 100%);
+        right: 0;
+      }
+
+      &.current-score{
+        bottom: initial;
+        transform: translate(-50%, -100%);
+        font-weight: bold;
+      }
+    }
+
+    .indicator-icon{
+      bottom: 0;
+      border-left: 3px solid transparent; border-right: 3px solid transparent; border-bottom: 6px solid #252525;
+      transform: translate(-50%, 100%);
+    }
+
+    .candidate-region-indicator {
+      border-left: 1px solid #628ae7;
+      background: skyblue;
+      position: absolute;
+      pointer-events: none;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+    }
+  }
 }
 
 .grey-zone {
-    background-color: #e2e2e2;
+  background-color: #e2e2e2;
 }
+
 .cand-zone {
-    background-color: skyblue;
+  background-color: skyblue;
 }
+
 .noncand-zone {
-    background-color: orchid;
+  background-color: orchid;
 }
 
 
 .candidate-bars {
-    font-size: 8px;
-    width:300px;
-    display: flex;
-    text-align:right;
-    justify-content: flex-end;
+  font-size: 8px;
+  width: 300px;
+  display: flex;
+  text-align: right;
+  justify-content: flex-end;
 }
+
 .noncandidate-bars {
-    font-size: 8px;
-    width:300px;
-    display: flex;
-    justify-content: flex-start;
+  font-size: 8px;
+  width: 300px;
+  display: flex;
+  justify-content: flex-start;
 }
+
 .weight-bar {
-    height: 15px;
+  height: 15px;
 }
 
 .cand-separator {
-    margin-left: 3px;
-    margin-right: 3px;
-    width: 1px;
-    height: 15px;
-    background-color: #777777
+  margin-left: 3px;
+  margin-right: 3px;
+  width: 1px;
+  height: 15px;
+  background-color: #777777
 }
 
 .bars {
-    width: 607px;
-    margin-right: 0px;
-    margin-left: 0px;
-    display: flex;
-    flex-wrap: wrap;
-    // justify-content: center;
+  width: 607px;
+  margin-right: 0px;
+  margin-left: 0px;
+  display: flex;
+  flex-wrap: wrap;
+  // justify-content: center;
 }
 
 .flex-align-right {
-    justify-content: flex-end;
+  justify-content: flex-end;
 }
 
 .header-bars {
-    width: 300px;
-    height: 3px;
-    background-color: #999999;
-    border: 1px solid #999999;
+  width: 300px;
+  height: 3px;
+  background-color: #999999;
+  border: 1px solid #999999;
 }
