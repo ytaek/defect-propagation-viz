@@ -14,9 +14,9 @@ interface State {
 
 export class CriterionValueWeightControl extends React.Component<Props, State> {
 
-  private mouseDownSliderX: number
-  private mouseDownClientX: number 
-  private sliderWidth: number
+  private mouseDownSliderY: number
+  private mouseDownClientY: number 
+  private sliderSize: number
 
   constructor(props: Props) {
     super(props)
@@ -37,9 +37,9 @@ export class CriterionValueWeightControl extends React.Component<Props, State> {
 
   onMouseDown(event: any) {
     console.log("mouse down")
-    this.mouseDownSliderX = event.nativeEvent.offsetX
-    this.mouseDownClientX = event.nativeEvent.clientX
-    this.sliderWidth = event.nativeEvent.srcElement.offsetWidth
+    this.mouseDownSliderY = event.nativeEvent.offsetY
+    this.mouseDownClientY = event.nativeEvent.clientY
+    this.sliderSize = event.nativeEvent.srcElement.offsetHeight
 
     window.addEventListener('mouseup', this.onMouseUp, false);
     window.addEventListener('mousemove', this.onMouseMove, false);
@@ -58,22 +58,38 @@ export class CriterionValueWeightControl extends React.Component<Props, State> {
   }
 
   onMouseMove(event: any) {
-
-    const deltaX = event.clientX - this.mouseDownClientX
-    console.log("deltaX: ", deltaX)
-    this.setState({ immediateWeight: Math.min(1, Math.max(0, (this.mouseDownSliderX + deltaX) / this.sliderWidth))*2 -1 })
+    const deltaY = event.clientY - this.mouseDownClientY
+    this.setState({ immediateWeight: -(Math.min(1, Math.max(0, (this.mouseDownSliderY + deltaY) / this.sliderSize))*2 -1) })
   }
 
   render() {
     const colors = d3.schemePastel2;
 
+    const styleObj = {
+      backgroundColor: (colors[this.props.criterionValue.criterion!.id])
+    } as any
+    
+    const weight = (this.state.immediateWeight || this.props.criterionValue.weight)
+
+    styleObj.height = (Math.abs(weight)*.5 * 100) + "%"
+
+    if(weight > 0){
+      styleObj.bottom = '50%'
+    }else{
+      styleObj.top = '50%'
+    }
+
+    const indicatorStyleObj = {
+      top: ((-weight + 1)/2 * 100) + "%"
+    }
+
     let weightView;
     if (this.props.criterionValue.status === CriterionValueStatus.WEIGHT) {
       weightView = <div className="weight-slider" onMouseDown={this.onMouseDown}>
-        <div className="slider-bar" style={{
-          width: ((this.state.immediateWeight || this.props.criterionValue.weight) / 2 + 0.5) * 100 + '%',
-          backgroundColor: (colors[this.props.criterionValue.criterion!.id])
-        }} />
+        <div className="slider-bar" style={styleObj} />
+        <div className="zero-indicator"/>
+        <div className="loc-indicator start" style={indicatorStyleObj}/>
+        <div className="loc-indicator end" style={indicatorStyleObj}/>
       </div>
     }
 
@@ -84,6 +100,7 @@ export class CriterionValueWeightControl extends React.Component<Props, State> {
           <div className="status-button" onClick={this.handleClick}>
             {this.renderStatusSwitch(this.props.criterionValue.status)}
           </div>
+          <div className="flex-filler"/>
           {weightView}
         </div>
       </div>)

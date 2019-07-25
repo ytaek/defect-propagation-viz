@@ -1,3 +1,8 @@
+
+$loc-indicator-height: 4px;
+$loc-indicator-side-style: $loc-indicator-height*.5 solid transparent;
+
+
 .App {
   text-align: center;
 }
@@ -82,11 +87,12 @@
 
             .name {
               padding: 0.25rem 0.5rem;
+              background: #fafafa;
             }
 
             .status-container {
               display: flex;
-              align-items: center;
+              align-items: baseline;
               justify-content: space-between;
               padding: 0.5rem 0.5rem;
 
@@ -137,17 +143,46 @@
             }
 
             .weight-slider {
-              flex: 1;
               background: #fafafa;
-              height: 16px;
-              margin-left: 11px;
+              width: 16px;
+              height: 32px;
               border: 1px solid #dedede;
               position: relative;
 
+              .zero-indicator {
+                position: absolute;
+                top: calc(50% - 0.5px);
+                left: 0;
+                right: 0;
+                border-bottom: 1px solid #0000008f;
+                pointer-events: none;
+              }
+
               .slider-bar {
                 position: absolute;
+                left: 0;
+                right: 0;
                 background: #a0a0a0;
-                height: 100%;
+                pointer-events: none;
+              }
+
+              .loc-indicator {
+                position: absolute;
+                border-top: $loc-indicator-side-style;
+                border-bottom: $loc-indicator-side-style;
+                pointer-events: none;
+
+                &.start {
+                  border-left: $loc-indicator-height solid #555;
+                  transform: translate(-100%,-50%);
+                  left: 0;
+                }
+
+                &.end {
+                  border-right: $loc-indicator-height solid #555;
+                  transform: translate(100%,-50%);
+                  right: 0;
+                }
               }
             }
           }
