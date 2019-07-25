@@ -1,12 +1,16 @@
 import { ProjectInterface, CriterionInterface, ProjectAttributes, CriterionValueStatus } from 'src/services/DataService';
+import update from 'react-addons-update';
 
 // types
 export interface ProjectsState {
   projects: ProjectInterface[];
   thresholdScore: number;
+  nonCandThresholdScore: number;
 }
 
 export const CALCULATE_SCORE = "project/CALCULATE_SCORE";
+export const SET_CAND_THRESHOLD = "project/SET_CAND_THRESHOLD";
+export const SET_NONCAND_THRESHOLD = "project/SET_NONCAND_THRESHOLD";
 
 interface CalculateScoreAction {
   type: typeof CALCULATE_SCORE;
@@ -15,8 +19,24 @@ interface CalculateScoreAction {
   };
 }
 
+interface SetCandThreshold {
+  type: typeof SET_CAND_THRESHOLD;
+  payload: {
+    thresholdScore: number;
+  }
+}
+
+interface SetNonCandThreshold {
+  type: typeof SET_NONCAND_THRESHOLD;
+  payload: {
+    nonCandThresholdScore: number;
+  }
+}
+
 export type ProjectsActionTypes = 
   | CalculateScoreAction
+  | SetCandThreshold
+  | SetNonCandThreshold
   ;
 
 
@@ -33,14 +53,35 @@ function calculateScore(cr: CriterionInterface[]) {
   };
 }
 
+function setCandThreshold(th: number) {
+  return {
+    type: SET_CAND_THRESHOLD,
+    payload: {
+      thresholdScore: th
+    }
+  }
+}
+
+function setNonCandThreshold(th: number) {
+  return {
+    type: SET_NONCAND_THRESHOLD,
+    payload: {
+      nonCandThresholdScore: th
+    }
+  }
+}
+
 export const projectsActionCreators = {
   calculateScore,
+  setCandThreshold,
+  setNonCandThreshold
 }
 
 // reducers
 
 const initialState: ProjectsState = {
   thresholdScore: 0,
+  nonCandThresholdScore: 0,
   projects: []
 }
 
@@ -62,10 +103,11 @@ export function projectReducer(
         proj.score = score;
         return proj;
       });
-      return {
-        thresholdScore: state.thresholdScore,
-        projects: newProjects
-      };
+      return update(state, {projects: {$set:newProjects}});
+    case SET_CAND_THRESHOLD:
+      return update(state, {thresholdScore: {$set:action.payload.thresholdScore}});
+    case SET_NONCAND_THRESHOLD:
+        return update(state, {nonThresholdScore: {$set:action.payload.nonCandThresholdScore}});
     default:
       return state;
   }
