@@ -1,6 +1,6 @@
 import { CriterionInterface, CriterionValueInterface, CriterionValueStatus } from 'src/services/DataService';
 import update from 'react-addons-update';
-import { csv } from 'd3';
+// import { csv } from 'd3';
 
 // types
 export interface CriteriaState {
