@@ -4,9 +4,8 @@ import ProjectItem from './ProjectItem';
 import './project.css';
 import * as d3 from "d3";
 import { ProjectsState } from 'src/redux/modules/projects';
-import { Col, Row } from "react-bootstrap";
 
-const CANDIDATE_WEIGHT_WIDTH = 150
+const CANDIDATE_WEIGHT_WIDTH = 150;
 
 interface Props {
   projectState: ProjectsState;
@@ -70,10 +69,7 @@ class ProjectList extends React.Component<Props, State> {
     const { projectState: projectState, criteria } = this.props;
     const projects = projectState.projects;
 
-    // TODO uncomment this row
     const thresholdScore = projectState.thresholdScore || this.state.immediateThresholdScore || 0; 
-    // const thresholdScore = this.state.immediateThresholdScore || 0;
-
 
     const colors = d3.schemePastel2;
     const darkColors = d3.schemeSet2;
@@ -212,7 +208,7 @@ class ProjectList extends React.Component<Props, State> {
           }
         </div>
         <div className="separator">
-          <div className="slider-title">Set Threshold Score</div>
+          {/* <div className="slider-title">Set Threshold Score</div> */}
           <div className="slider-container">
             <div className="drag-region"  onMouseDown={this.mouseDownOnThresholdBar}/>
             <div className="candidate-region-indicator"
@@ -223,7 +219,7 @@ class ProjectList extends React.Component<Props, State> {
             />
             <div className="indicator-text current-score" style={{
               left: thresholdScore + "%"
-            }}>{Math.round(thresholdScore * 100)/100}</div>
+            }}>{(Math.round(thresholdScore * 100)/100).toFixed(1)}</div>
             <div className="indicator-text min-score">0</div>
             <div className="indicator-text max-score">100</div>
             <div className="indicator-icon" style={{

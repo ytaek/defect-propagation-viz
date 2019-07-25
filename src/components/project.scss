@@ -48,23 +48,23 @@ $score_thresholder_left_space: $project_name_width+$project_ox_width;
 
 .separator {
   width: 100%;
-  background-color: #FFF;
+  // background-color: #FFF;
   padding-left: $score_thresholder_left_space;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
-  position: relative;
-  box-shadow: 0px 2px 8px #00000030;
+  padding-top: 0.1rem;
+  padding-bottom: 0.1rem;
+  // position: relative;
+  // box-shadow: 0px 2px 8px #00000030;
 
   .slider-title {
     font-size: 0.6rem;
   }
 
   .slider-container {
-    margin-top: 1rem;
-    margin-bottom: 1.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
     background: lightgray;
     width: $project_score_width;
-    height: 30px;
+    height: 10px;
     border: 1px solid #575757;
     border-top: none;
     border-right: none;
@@ -81,7 +81,7 @@ $score_thresholder_left_space: $project_name_width+$project_ox_width;
     .indicator-text {
       font-size: 0.5rem;
       position: absolute;
-      bottom: -8px;
+      bottom: 20px;
 
       &.min-score {
         transform: translate(-50%, 100%);

@@ -54,8 +54,6 @@ function calculateScore(cr: CriterionInterface[]) {
 }
 
 function setCandThreshold(th: number) {
-console.log("HERE??", th, "why me!!!!");
-
   return {
     type: SET_CAND_THRESHOLD,
     payload: {
@@ -91,10 +89,8 @@ export function projectReducer(
   state = initialState,
   action: ProjectsActionTypes
 ): ProjectsState {
-console.log("REDUCE???")
   switch (action.type) {
     case CALCULATE_SCORE:
-console.log("calc");
       const newProjects = state.projects.map( (proj) => {
         const score = Object.keys(new ProjectAttributes()).reduce( (prev: number, name: string) => {
           const cv = action.payload.criteria.filter(d => (d.name === name))[0]
@@ -109,7 +105,6 @@ console.log("calc");
       });
       return update(state, {projects: {$set:newProjects}});
     case SET_CAND_THRESHOLD:
-        console.log("set_cand", action.payload.thresholdScore)
       return update(state, {thresholdScore: {$set:action.payload.thresholdScore}});
     case SET_NONCAND_THRESHOLD:
       return update(state, {nonThresholdScore: {$set:action.payload.nonCandThresholdScore}});

@@ -27,11 +27,9 @@ class ProjectListContainer extends React.Component<Props> {
 console.log("Container render reloaded!!", this.props.criteria)
         return (
             <div>
-                <button onClick={this.test} >test</button>
                 <ProjectList
                     projectState={this.props.projectState}
                     criteria={this.props.criteria}
-                    // onOrder={this.onOrder}
                     onSetCandThreshold={this.onSetCandThreshold}
                     onSetNonCandThreshold={this.onSetNonCandThreshold}
                 />
@@ -40,41 +38,14 @@ console.log("Container render reloaded!!", this.props.criteria)
     }
 
     onSetCandThreshold = (th: number): void => {
-        projectsActionCreators.setCandThreshold(th);
+        const { projectsActions } = this.props;
+        projectsActions.setCandThreshold(th);
+
         console.log(th, this.props.projectState.thresholdScore);
     }
 
     onSetNonCandThreshold = (th: number): void => {
         projectsActionCreators.setNonCandThreshold(th);
-    }
-
-
-    test = (): void => {
-        this.props.criteria[0].values[0].status = CriterionValueStatus.CAND;
-        
-        const { projectsActions, criteria } = this.props;
-        projectsActions.calculateScore(criteria);
-    }
-
-    onOrder = (): void => {
-        // test
-        this.props.criteria[0].values[0].status = CriterionValueStatus.CAND;
-        this.props.criteria[0].values[1].status = CriterionValueStatus.CAND;
-        this.props.criteria[0].values[2].status = CriterionValueStatus.NONCAND;
-        this.props.criteria[0].values[3].status = CriterionValueStatus.CAND;
-        this.props.criteria[0].values[4].status = CriterionValueStatus.CAND;
-        this.props.criteria[0].values[5].status = CriterionValueStatus.CAND;
-        this.props.criteria[0].values[6].status = CriterionValueStatus.NONCAND;
-
-        this.props.criteria[2].values[1].status = CriterionValueStatus.NONCAND;
-        this.props.criteria[3].values[0].status = CriterionValueStatus.CAND;
-
-        this.props.criteria[4].values[2].status = CriterionValueStatus.CAND;
-        this.props.criteria[4].values[3].status = CriterionValueStatus.NONCAND;
-
-
-        const { projectsActions, criteria } = this.props;
-        projectsActions.calculateScore(criteria);
     }
 }
 

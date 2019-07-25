@@ -39,7 +39,7 @@ export class ProjectItem extends React.Component<Props> {
 
     if (project.candidateStatus !== ProjectCandidateStatus.RULE) {
       // if (project.score > candThreshold || project.score < nonCandThreshold) {
-      if (project.score > candThreshold) {
+      if (project.score > candThreshold / 100) {
         gradColor = grad(project.score);
       }
     }
