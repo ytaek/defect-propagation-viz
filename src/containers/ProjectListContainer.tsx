@@ -29,11 +29,11 @@ console.log("Container render reloaded!!", this.props.criteria)
             <div>
                 <button onClick={this.test} >test</button>
                 <ProjectList
-                    projects={this.props.projectState}
+                    projectState={this.props.projectState}
                     criteria={this.props.criteria}
                     // onOrder={this.onOrder}
-                    onSetCandThreshold={this.onSetCandThreshold}
-                    onSetNonCandThreshold={this.onSetNonCandThreshold}
+                    // onSetCandThreshold={this.onSetCandThreshold}
+                    // onSetNonCandThreshold={this.onSetNonCandThreshold}
                 />
             </div>
         );

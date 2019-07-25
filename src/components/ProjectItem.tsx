@@ -24,7 +24,6 @@ export class ProjectItem extends React.Component<Props> {
 
     const criterionWeights = criteria.map(c => {
       const value = project.attributes[c.name];
-console.log("ERR", c.values, value, c.values.filter(cv => cv.name === value)[0]);
       return c.values.filter(cv => cv.name === value)[0].weight * c.weight;
     });
 

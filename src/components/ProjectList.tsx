@@ -11,7 +11,7 @@ const CANDIDATE_WEIGHT_WIDTH = 150
 interface Props {
   projectState: ProjectsState;
   criteria: CriterionInterface[];
-  onOrder(): void;
+  // onOrder(): void;
 }
 
 interface State {
