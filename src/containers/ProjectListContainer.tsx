@@ -32,8 +32,8 @@ console.log("Container render reloaded!!", this.props.criteria)
                     projectState={this.props.projectState}
                     criteria={this.props.criteria}
                     // onOrder={this.onOrder}
-                    // onSetCandThreshold={this.onSetCandThreshold}
-                    // onSetNonCandThreshold={this.onSetNonCandThreshold}
+                    onSetCandThreshold={this.onSetCandThreshold}
+                    onSetNonCandThreshold={this.onSetNonCandThreshold}
                 />
             </div>
         );
@@ -41,6 +41,7 @@ console.log("Container render reloaded!!", this.props.criteria)
 
     onSetCandThreshold = (th: number): void => {
         projectsActionCreators.setCandThreshold(th);
+        console.log(th, this.props.projectState.thresholdScore);
     }
 
     onSetNonCandThreshold = (th: number): void => {

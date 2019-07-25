@@ -103,6 +103,7 @@ $score_thresholder_left_space: $project_name_width+$project_ox_width;
       bottom: 0;
       border-left: 3px solid transparent; border-right: 3px solid transparent; border-bottom: 6px solid #252525;
       transform: translate(-50%, 100%);
+      position: absolute;
     }
 
     .candidate-region-indicator {

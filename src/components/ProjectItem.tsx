@@ -3,6 +3,7 @@ import { ProjectInterface, CriterionValueInterface, CriterionInterface, ProjectA
 import * as d3 from "d3";
 interface Props {
   project: ProjectInterface;
+  candThreshold: number;
   criteria: CriterionInterface[];
   // candidateCriterionValueList: CriterionValueInterface[];
   // nonCandidateCriterionValueList: CriterionValueInterface[];
@@ -11,7 +12,7 @@ interface Props {
 
 export class ProjectItem extends React.Component<Props> {
   render() {
-    const { project, criteria } = this.props;
+    const { candThreshold, project, criteria } = this.props;
 
     // const candidates = this.props.criteria.map( (c) => {
     //   const cvList = this.props.candidateCriterionValueList.filter( cv => cv.criterion!.name === c.name).map( d => d.name);
@@ -31,15 +32,14 @@ export class ProjectItem extends React.Component<Props> {
     const darkColors = d3.schemeSet2;
     
     let gradColor = "";
-    const candThreshold = 0.1;
-    const nonCandThreshold = -0.1;
+    // const nonCandThreshold = -0.1;
 
     const grad = d3.scaleLinear<string>()
         .domain([-1, 0, 1]).range(["orchid", "#e2e2e2", "skyblue"]);
 
-
     if (project.candidateStatus !== ProjectCandidateStatus.RULE) {
-      if (project.score > candThreshold || project.score < nonCandThreshold) {
+      // if (project.score > candThreshold || project.score < nonCandThreshold) {
+      if (project.score > candThreshold) {
         gradColor = grad(project.score);
       }
     }

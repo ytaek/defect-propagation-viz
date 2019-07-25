@@ -19,14 +19,14 @@ interface CalculateScoreAction {
   };
 }
 
-interface SetCandThreshold {
+interface SetCandThresholdAction {
   type: typeof SET_CAND_THRESHOLD;
   payload: {
     thresholdScore: number;
   }
 }
 
-interface SetNonCandThreshold {
+interface SetNonCandThresholdAction {
   type: typeof SET_NONCAND_THRESHOLD;
   payload: {
     nonCandThresholdScore: number;
@@ -34,9 +34,9 @@ interface SetNonCandThreshold {
 }
 
 export type ProjectsActionTypes = 
-  | CalculateScoreAction
-  | SetCandThreshold
-  | SetNonCandThreshold
+  CalculateScoreAction
+  | SetCandThresholdAction
+  | SetNonCandThresholdAction
   ;
 
 
@@ -54,12 +54,14 @@ function calculateScore(cr: CriterionInterface[]) {
 }
 
 function setCandThreshold(th: number) {
+console.log("HERE??", th, "why me!!!!");
+
   return {
     type: SET_CAND_THRESHOLD,
     payload: {
       thresholdScore: th
     }
-  }
+  };
 }
 
 function setNonCandThreshold(th: number) {
@@ -72,8 +74,8 @@ function setNonCandThreshold(th: number) {
 }
 
 export const projectsActionCreators = {
-  calculateScore,
   setCandThreshold,
+  calculateScore,
   setNonCandThreshold
 }
 
@@ -89,8 +91,10 @@ export function projectReducer(
   state = initialState,
   action: ProjectsActionTypes
 ): ProjectsState {
+console.log("REDUCE???")
   switch (action.type) {
     case CALCULATE_SCORE:
+console.log("calc");
       const newProjects = state.projects.map( (proj) => {
         const score = Object.keys(new ProjectAttributes()).reduce( (prev: number, name: string) => {
           const cv = action.payload.criteria.filter(d => (d.name === name))[0]
@@ -105,45 +109,11 @@ export function projectReducer(
       });
       return update(state, {projects: {$set:newProjects}});
     case SET_CAND_THRESHOLD:
+        console.log("set_cand", action.payload.thresholdScore)
       return update(state, {thresholdScore: {$set:action.payload.thresholdScore}});
     case SET_NONCAND_THRESHOLD:
-        return update(state, {nonThresholdScore: {$set:action.payload.nonCandThresholdScore}});
+      return update(state, {nonThresholdScore: {$set:action.payload.nonCandThresholdScore}});
     default:
       return state;
   }
 }
-
-// import { createAction, handleActions } from "redux-actions";
-
-// // Actions
-// const INSERT_WEIGHT = "criteria/INSERT_WEIGHT";
-// const DELETE_WEIGHT = "criteria/DELETE_WEIGHT";
-
-// export const actionCreators = {
-//   insert: createAction(INSERT_WEIGHT),
-//   delete: createAction(DELETE_WEIGHT)
-// };
-
-// export interface CriterionState {
-//   weights: any;
-//   criterionWeight: number;
-// }
-
-// const initialState: CriterionState = {
-//   weights: {},
-//   criterionWeight: 1
-// };
-
-// // Reducers
-// export default handleActions<CriterionState, number>(
-//   {
-//     [INSERT_WEIGHT]: (state, action) => {
-//       console.log(state);
-//       return { ...state, weights: undefined, criterionWeight: action.payload };
-//     }
-//     // [INSERT_WEIGHT]: (state, w, cw) => ({ state.weights = w; state.criterionWeight = cw; }),
-//     // [DELETE_WEIGHT]:state => ({ value: state.value - 1 })
-//     // [INCREMENT]: (state) => ({ value: state.value + 1 }),
-//   },
-//   initialState
-// );

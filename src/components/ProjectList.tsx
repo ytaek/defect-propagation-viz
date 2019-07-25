@@ -12,6 +12,8 @@ interface Props {
   projectState: ProjectsState;
   criteria: CriterionInterface[];
   // onOrder(): void;
+  onSetCandThreshold(th: number): void;
+  onSetNonCandThreshold(th: number): void;
 }
 
 interface State {
@@ -30,9 +32,7 @@ class ProjectList extends React.Component<Props, State> {
     this.state = { immediateThresholdScore: null }
 
     this.mouseDownOnThresholdBar = this.mouseDownOnThresholdBar.bind(this)
-
     this.mouseMoveForThresholdBar = this.mouseMoveForThresholdBar.bind(this)
-
     this.mouseUpForThresholdBar = this.mouseUpForThresholdBar.bind(this)
   }
 
@@ -63,8 +63,7 @@ class ProjectList extends React.Component<Props, State> {
   }
 
   changeThresholdScore(value: number) {
-    // TODO connect
-    return;
+    this.props.onSetCandThreshold(value);
   }
 
   render() {
@@ -72,8 +71,8 @@ class ProjectList extends React.Component<Props, State> {
     const projects = projectState.projects;
 
     // TODO uncomment this row
-    // const thresholdScore = projectState.thresholdScore || this.state.immediateThresholdScore; 
-    const thresholdScore = this.state.immediateThresholdScore || 0;
+    const thresholdScore = projectState.thresholdScore || this.state.immediateThresholdScore || 0; 
+    // const thresholdScore = this.state.immediateThresholdScore || 0;
 
 
     const colors = d3.schemePastel2;
@@ -139,7 +138,7 @@ class ProjectList extends React.Component<Props, State> {
       .sort((a, b) => (b.candidateRuleScore! - a.candidateRuleScore!))
       .map(d => d);
 
-    console.log(candProjectsByRule, greyProjects, nonCandProjectsByRule);
+    // console.log(candProjectsByRule, greyProjects, nonCandProjectsByRule);
 
     return (
       <div>
@@ -207,6 +206,7 @@ class ProjectList extends React.Component<Props, State> {
               <ProjectItem
                 project={prj}
                 criteria={criteria}
+                candThreshold={thresholdScore}
                 key={i} />
             )
           }
@@ -240,6 +240,7 @@ class ProjectList extends React.Component<Props, State> {
               <ProjectItem
                 project={prj}
                 criteria={criteria}
+                candThreshold={thresholdScore}
                 key={i} />
             )
           }
@@ -253,6 +254,7 @@ class ProjectList extends React.Component<Props, State> {
               <ProjectItem
                 project={prj}
                 criteria={criteria}
+                candThreshold={thresholdScore}
                 key={i} />
             )
           }
