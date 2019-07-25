@@ -52,7 +52,8 @@ export class ProjectItem extends React.Component<Props> {
             width: 150 * Math.abs(project.score),
             backgroundColor: "#cccccc",
             height: "13px"
-          }}>{(project.score * 100).toFixed(2)}</div>
+          }}/>
+          <div >{(project.score * 100).toFixed(1)}</div>
         </div> 
         <div className="candidate-bars">
         +
@@ -65,7 +66,7 @@ export class ProjectItem extends React.Component<Props> {
                   backgroundColor: colors[c.id],
                   height: "13px"
                 }}>
-                {criterionWeights[c.id] !== 0 ? project.attributes[c.name] : ""}
+                {/* {criterionWeights[c.id] !== 0 ? project.attributes[c.name] : ""} */}
               </div>
             </div>
           )) 
@@ -82,7 +83,7 @@ export class ProjectItem extends React.Component<Props> {
                   backgroundColor: colors[c.id],
                   height: "13px"
                 }}> 
-                {criterionWeights[c.id] !== 0 ? project.attributes[c.name] : ""}
+                {/* {criterionWeights[c.id] !== 0 ? project.attributes[c.name] : ""} */}
               </div>
             </div>
           ))

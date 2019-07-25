@@ -4,6 +4,7 @@ import ProjectItem from './ProjectItem';
 import './project.css';
 import * as d3 from "d3";
 import { ProjectsState } from 'src/redux/modules/projects';
+import { Col, Row } from "react-bootstrap";
 
 interface Props {
   projectState: ProjectsState;
@@ -115,22 +116,29 @@ class ProjectList extends React.Component<Props> {
           <div className="score">
             <b>SCORE BAR<br/>(Min:-100, Max:100)</b>
           </div>
-          <div className="bars">
-          {
-            criteria.map( (c, i) => (
-              <div key={i} className="attributes">
-                <div style={{
-                    margin: "2px",
-                    fontWeight:"bold",
-                    textAlign:"center",
-                    width:60*c.weight,
-                    backgroundColor: colors[i]
-                  }}>
-                  {c.weight !== 0 ? c.name : ""}
-                </div>
-              </div>
-            ))
-          }
+          <div>
+            <div className="bars" style={{justifyContent: "flex-left"}}>
+              {
+                criteria.map( (c, i) => (
+                  <div key={i} className="attributes">
+                    <div style={{
+                        margin: "2px",
+                        fontWeight:"bold",
+                        textAlign:"center",
+                        width:60*c.weight,
+                        backgroundColor: colors[i]
+                      }}>
+                      {c.weight !== 0 ? c.name : ""}
+                    </div>
+                  </div>
+                ))
+              }
+            </div>
+            <div className="bars">
+              <div className="header-bars" />
+              <div className="cand-separator" style={{height:3}}/>
+              <div className="header-bars" />
+            </div>
           </div>
         </div>
         <div>
@@ -145,7 +153,7 @@ class ProjectList extends React.Component<Props> {
           )
         }
         </div>
-        <div className="separator" />
+        <div className="separator"/>
         <div className="grey-zone">
         {
           // sorting 

@@ -27,7 +27,7 @@
 .separator {
   width: 100%;
   background-color: #eeeeee;
-  height: 1px; }
+  height: 5px; }
 
 .grey-zone {
   background-color: #e2e2e2; }
@@ -56,5 +56,16 @@
   background-color: #777777; }
 
 .bars {
+  width: 607px;
+  margin-right: 0px;
+  margin-left: 0px;
   display: flex;
-  justify-content: center; }
+  flex-wrap: wrap; }
+
+.flex-align-right {
+  justify-content: flex-end; }
+
+.header-bars {
+  width: 300px;
+  height: 3px;
+  border: 1px solid #999999; }
