@@ -2,74 +2,74 @@
     {
         "name": "oem",
         "values": [
-            "OEM3",
-            "OEM8",
-            "OEM23",
-            "OEM7",
-            "OEM15",
-            "OEM4",
-            "OEM13",
-            "OEM6",
-            "OEM12",
-            "OEM1",
-            "OEM14",
-            "OEM9",
-            "OEM10"
+            "CO.A",
+            "CO.C",
+            "CO.D",
+            "CO.F",
+            "CO.G",
+            "CO.H",
+            "CO.I",
+            "CO.J",
+            "CO.L",
+            "CO.M",
+            "CO.N",
+            "CO.O",
+            "CO.X"
         ]
     },
     {
         "name": "nandCell",
         "values": [
-            "NANDA4",
-            "NANDA1",
-            "NANDA2"
+            "NC4",
+            "NC1",
+            "NC2"
         ]
     },
     {
         "name": "formFactor",
         "values": [
-            "NANDC2",
-            "NANDC1"
+            "F2",
+            "F1"
         ]
     },
     {
         "name": "density",
         "values": [
-            "NANDD5",
-            "NANDD6",
-            "NANDD4",
-            "NANDD1",
-            "NANDD2"
+            "D5",
+            "D6",
+            "D4",
+            "D1",
+            "D2"
         ]
     },
     {
         "name": "nandDesign",
         "values": [
-            "NANDB5",
-            "NANDB7",
-            "NANDB12",
-            "NANDB6",
-            "NANDB1"
+            "ND5",
+            "ND7",
+            "ND12",
+            "ND6",
+            "ND1"
         ]
     },
     {
         "name": "capacity",
         "values": [
-            "NANDE20",
-            "NANDE2",
-            "NANDE27",
-            "NANDE29",
-            "NANDE32",
-            "NANDE26",
-            "NANDE25",
-            "NANDE13",
-            "NANDE30",
-            "NANDE24",
-            "NANDE21",
-            "NANDE33",
-            "NANDE31",
-            "NANDE10",
-            "NANDE15"
+            "E20",
+            "E2",
+            "E27",
+            "E29",
+            "E32",
+            "E26",
+            "E25",
+            "E13",
+            "E30",
+            "E24",
+            "E21",
+            "E33",
+            "E31",
+            "E10",
+            "E15"
         ]
     }
 ]
