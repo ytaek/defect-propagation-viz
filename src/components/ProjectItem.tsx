@@ -1,8 +1,6 @@
 import * as React from "react";
-import { ProjectInterface, CriterionValueInterface, CriterionInterface, ProjectAttributes } from "../services/DataService";
+import { ProjectInterface, CriterionValueInterface, CriterionInterface, ProjectAttributes, ProjectCandidateStatus } from "../services/DataService";
 import * as d3 from "d3";
-import { color } from 'd3';
-
 interface Props {
   project: ProjectInterface;
   criteria: CriterionInterface[];
@@ -31,9 +29,26 @@ export class ProjectItem extends React.Component<Props> {
 
     const colors = d3.schemePastel2;
     const darkColors = d3.schemeSet2;
+    
+    let gradColor = "";
+    const candThreshold = 0.1;
+    const nonCandThreshold = -0.1;
 
+    const grad = d3.scaleLinear<string>()
+        .domain([-1, 0, 1]).range(["orchid", "#e2e2e2", "skyblue"]);
+
+
+    if (project.candidateStatus !== ProjectCandidateStatus.RULE) {
+      if (project.score > candThreshold || project.score < nonCandThreshold) {
+        gradColor = grad(project.score);
+      }
+    }
+    
     return (
-      <div className="flex-container flex-align-items-center">
+      <div className="flex-container flex-align-items-center" 
+          style={{
+            backgroundColor:gradColor
+          }}>
         <div className="project-name">{project.code}</div>
         {/* {
           this.props.candidateCriterionValueList.map( (cv: CriterionValueInterface) => (

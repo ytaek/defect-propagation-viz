@@ -1,3 +1,8 @@
+.classification-col {
+    width: 50px;
+    font-size: 7px;
+}
+
 .status-value {
     font-size: 7px;
     width: 80px;
@@ -35,6 +40,12 @@
 
 .grey-zone {
     background-color: #e2e2e2;
+}
+.cand-zone {
+    background-color: skyblue;
+}
+.noncand-zone {
+    background-color: orchid;
 }
 
 
@@ -79,5 +90,6 @@
 .header-bars {
     width: 300px;
     height: 3px;
+    background-color: #999999;
     border: 1px solid #999999;
 }

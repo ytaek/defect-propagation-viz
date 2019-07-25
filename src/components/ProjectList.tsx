@@ -141,7 +141,7 @@ class ProjectList extends React.Component<Props> {
             </div>
           </div>
         </div>
-        <div>
+        <div className="cand-zone">
         {
           // sorting 
           // cand - grey - noncand
@@ -167,7 +167,7 @@ class ProjectList extends React.Component<Props> {
         }
         </div>
         <div className="separator" />
-        <div>
+        <div className="noncand-zone">
         {
           // sorting 
           // cand - grey - noncand
