@@ -110,7 +110,7 @@ $loc-indicator-side-style: $loc-indicator-height*.5 solid transparent;
                 .status {
 
                   &.status-cand {
-                    background: gray;
+                    background: skyblue;
                     left: 1px;
                     top: 1px;
                     right: 1px;
@@ -120,13 +120,20 @@ $loc-indicator-side-style: $loc-indicator-height*.5 solid transparent;
                   }
 
                   &.status-noncand {
-                    font-size: 1.5rem;
-                    line-height: 0.5;
-                    position: absolute;
+                    // font-size: 1.5rem;
+                    // line-height: 0.5;
+                    // position: absolute;
+                    // left: 1px;
+                    // top: 0px;
+                    // color: gray;
+                    // font-weight: 500;
+                    background: orchid;
                     left: 1px;
-                    top: 0px;
-                    color: gray;
-                    font-weight: 500;
+                    top: 1px;
+                    right: 1px;
+                    bottom: 1px;
+                    position: absolute;
+                    border-radius: 50%;
                   }
 
                   &.status-weight {

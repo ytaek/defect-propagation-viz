@@ -113,7 +113,7 @@ export class CriterionValueWeightControl extends React.Component<Props, State> {
         return (<div className="status status-cand" />)
       case CriterionValueStatus.NONCAND:
         console.log(status, CriterionValueStatus.NONCAND);
-        return (<div className="status status-noncand">×</div>)
+        return (<div className="status status-noncand"/>)
       case CriterionValueStatus.WEIGHT:
       default:
         return (<div className="status status-weight">W</div>)
