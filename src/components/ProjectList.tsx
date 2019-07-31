@@ -159,7 +159,7 @@ class ProjectList extends React.Component<Props, State> {
           }
         </div> */}
         <div className="flex-container flex-align-items-center">
-          <div className="project-name"><b>NAME</b></div>
+          <div className="project-name"><b>PRODUCT</b></div>
           <div className="candidate-ox">
             <b>CANDIDATE</b> <br />
             {this.props.criteria.map((d: any, i: number) => (
@@ -188,9 +188,9 @@ class ProjectList extends React.Component<Props, State> {
               }
             </div>
             <div className="bars">
-              <div className="header-bars" />
+              <div className="header-bars">CANDIDATE</div>
               <div className="cand-separator" style={{ height: '30px' }} />
-              <div className="header-bars" />
+              <div className="header-bars">NONCANDIDATE</div>
             </div>
           </div>
         </div>
@@ -219,7 +219,7 @@ class ProjectList extends React.Component<Props, State> {
             />
             <div className="indicator-text current-score" style={{
               left: thresholdScore + "%"
-            }}>{(Math.round(thresholdScore * 100)/100).toFixed(1)}</div>
+            }}>{(Math.round(thresholdScore * 100)/100).toFixed(0)}</div>
             <div className="indicator-text min-score">0</div>
             <div className="indicator-text max-score">100</div>
             <div className="indicator-icon" style={{

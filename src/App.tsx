@@ -31,7 +31,7 @@ class App extends React.Component<Props> {
     return (
       <div id="App-wrapper">
         <div id="App-header">
-          <div id="App-title">MCDM Vis</div>
+          <div id="App-title">Issue Propagation Visualization</div>
         </div>
         <div className="App-container">
           <div className="App-sidebar">

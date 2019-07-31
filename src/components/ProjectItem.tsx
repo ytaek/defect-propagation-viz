@@ -71,7 +71,7 @@ export class ProjectItem extends React.Component<Props> {
           <div >{(project.score * 100).toFixed(1)}</div>
         </div> 
         <div className="candidate-bars">
-        +
+        
         {
           criteria.filter( (c, i) => criterionWeights[c.id] > 0).map( (c, i) => (
           // criteria.map( (c, i) => (
@@ -81,7 +81,7 @@ export class ProjectItem extends React.Component<Props> {
                   backgroundColor: colors[c.id],
                   height: "13px"
                 }}>
-                {/* {criterionWeights[c.id] !== 0 ? project.attributes[c.name] : ""} */}
+                {criterionWeights[c.id] !== 0 ? project.attributes[c.name] : ""}
               </div>
             </div>
           )) 
@@ -98,12 +98,12 @@ export class ProjectItem extends React.Component<Props> {
                   backgroundColor: colors[c.id],
                   height: "13px"
                 }}> 
-                {/* {criterionWeights[c.id] !== 0 ? project.attributes[c.name] : ""} */}
+                {criterionWeights[c.id] !== 0 ? project.attributes[c.name] : ""}
               </div>
             </div>
           ))
         }
-        -
+        
         </div>
         {
           // // criteria.filter(c => c.weight !== 0).map( (c, i) => (

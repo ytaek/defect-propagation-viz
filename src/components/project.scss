@@ -50,7 +50,7 @@ $score_thresholder_left_space: $project_name_width+$project_ox_width;
   width: 100%;
   // background-color: #FFF;
   padding-left: $score_thresholder_left_space;
-  padding-top: 0.1rem;
+  padding-top: 0.4rem;
   padding-bottom: 0.1rem;
   // position: relative;
   // box-shadow: 0px 2px 8px #00000030;
@@ -81,7 +81,7 @@ $score_thresholder_left_space: $project_name_width+$project_ox_width;
     .indicator-text {
       font-size: 0.5rem;
       position: absolute;
-      bottom: 20px;
+      bottom: 24px;
 
       &.min-score {
         transform: translate(-50%, 100%);
