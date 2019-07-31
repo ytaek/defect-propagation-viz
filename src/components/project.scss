@@ -37,6 +37,7 @@ $score_thresholder_left_space: $project_name_width+$project_ox_width;
   border-right: 2px solid white;
   padding-left: 0.25rem;
   padding-right: 0.25rem;
+  flex-shrink: 0;
   &.no-padding{
     padding-left: 0;
     padding-right: 0;
@@ -44,6 +45,8 @@ $score_thresholder_left_space: $project_name_width+$project_ox_width;
 }
 
 .project-header{
+  padding-top: 0.5rem;
+  
   .main-cell{
     border-right-color: transparent;
   }

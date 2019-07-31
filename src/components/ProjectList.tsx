@@ -158,7 +158,7 @@ class ProjectList extends React.Component<Props, State> {
             ))
           }
         </div> */}
-        <div className="flex-container flex-align-items-center project-header">
+        <div className="flex-container project-header">
           <div className="project-name main-cell"><b>PRODUCT</b></div>
           <div className="candidate-ox main-cell">
             <b>CANDIDATE</b> <br />
