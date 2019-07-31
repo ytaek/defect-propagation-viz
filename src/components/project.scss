@@ -29,6 +29,8 @@ $score_thresholder_left_space: $project_name_width+$project_ox_width;
   font-size: 8px;
   width: $project_ox_width;
   flex-shrink: 0;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .main-cell{
@@ -49,10 +51,10 @@ $score_thresholder_left_space: $project_name_width+$project_ox_width;
 
 .score {
   display: flex;
-  justify-content: flex-start;
+  // justify-content: flex-start;
   font-size: 8px;
   width: $project_score_width;
-  flex-shrink: 0;
+  // flex-shrink: 0;
 }
 
 .attributes {
@@ -191,6 +193,7 @@ $score_thresholder_left_space: $project_name_width+$project_ox_width;
 .header-bars {
   width: 300px;
   height: 3px;
+  font-size: 9px;
   background-color: #999999;
   border: 1px solid #999999;
 }

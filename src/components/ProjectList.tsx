@@ -88,11 +88,11 @@ class ProjectList extends React.Component<Props, State> {
 
         if (cvList.includes(project.attributes[c.name])) {
           candCnt++;
-          return "O";
+          return "C";
         }
         else if (ncvList.includes(project.attributes[c.name])) {
           nonCandCnt++;
-          return "X";
+          return "N";
         }
         else { return "-"; }
       });
@@ -163,11 +163,16 @@ class ProjectList extends React.Component<Props, State> {
           <div className="candidate-ox main-cell">
             <b>CANDIDATE</b> <br />
             {this.props.criteria.map((d: any, i: number) => (
-              <b key={i} style={{ color: darkColors[i] }}>{i + 1} </b>
+              <div style={{
+                width: 10,
+                backgroundColor: colors[i],
+                height: 15
+              }} />
+              // <b key={i} style={{ color: darkColors[i] }}>{i + 1} </b>
             ))}
           </div>
           <div className="score main-cell">
-            <b>SCORE BAR<br />(Min:-100, Max:100)</b>
+            <br /><b>SCORE BAR</b>
           </div>
           <div>
             <div className="bars" style={{ justifyContent: "flex-left" }}>
@@ -188,8 +193,10 @@ class ProjectList extends React.Component<Props, State> {
               }
             </div>
             <div className="bars">
-              <div className="header-bars">CANDIDATE</div>
-              <div className="cand-separator" style={{ height: '30px' }} />
+              <div className="header-bars" style={{
+                display:"flex", justifyContent:"flex-end"
+                }}>CANDIDATE</div>
+              <div className="cand-separator" style={{ height: '15px' }} />
               <div className="header-bars">NONCANDIDATE</div>
             </div>
           </div>

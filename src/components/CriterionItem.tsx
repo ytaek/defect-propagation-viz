@@ -20,7 +20,7 @@ export class CriterionItem extends React.Component<Props> {
     return (
       <Row className="criterion-row">
         <Col xs={3} className="criterion-name">
-          ({this.props.criterion.id + 1}) {this.props.criterion.name}
+          {this.props.criterion.name}
           <CriterionWeightControl
             onSetWeight={this.props.onSetWeight}
             criterion={this.props.criterion}/>

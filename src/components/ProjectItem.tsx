@@ -36,7 +36,7 @@ export class ProjectItem extends React.Component<Props> {
 
     const grad = d3.scaleLinear<string>()
         .domain([-1, 0, 1]).range(["orchid", "#e2e2e2", "skyblue"]);
-
+    
     if (project.candidateStatus !== ProjectCandidateStatus.RULE) {
       // if (project.score > candThreshold || project.score < nonCandThreshold) {
       if (project.score > candThreshold / 100) {
@@ -60,15 +60,23 @@ export class ProjectItem extends React.Component<Props> {
           ))
         } */}
         <div className="candidate-ox main-cell">
-          {project.candidateOXList!.map( (c, i) => (<b key={i} style={{color:darkColors[i]}}>{c} </b>))}
+            {project.candidateOXList!.map( (c, i) => (
+              <div style={{
+                width: 10,
+                color: darkColors[i],
+                height: "100%"
+              }}>
+                <b key={i} style={{color:darkColors[i]}}>{c} </b>
+              </div>
+            ))}
         </div>
         <div className="score main-cell no-padding">
           <div style={{
             width: 150 * Math.abs(project.score),
-            backgroundColor: "#cccccc",
+            backgroundColor: (project.score < 0 ? grad(project.score) : "#cccccc"),
             height: "13px"
           }}/>
-          <div >{(project.score * 100).toFixed(1)}</div>
+          <div >{(Math.abs(project.score * 100).toFixed(1))}</div>
         </div> 
         <div className="candidate-bars">
         
