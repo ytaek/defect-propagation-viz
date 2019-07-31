@@ -16,9 +16,9 @@ interface Props {
 class App extends React.Component<Props> {
   private dataService: DataService;
 
-  constructor(props: any){
+  constructor(props: any) {
     super(props);
-    
+
     this.dataService = new DataService();
 
     this.props.projects.projects = this.dataService.projectsData;
@@ -26,27 +26,32 @@ class App extends React.Component<Props> {
   }
 
   render() {
-console.log("APP RENDER", this.props.criteria);
+    console.log("APP RENDER", this.props.criteria);
 
     return (
-      <div className="App-container">
-        <div className="App-sidebar">
-          <CriterionListContainer />
+      <div id="App-wrapper">
+        <div id="App-header">
+          <div id="App-title">MCDM Vis</div>
         </div>
-        <div className="App-main">
-          <ProjectListContainer />
+        <div className="App-container">
+          <div className="App-sidebar">
+            <CriterionListContainer />
+          </div>
+          <div className="App-main">
+            <ProjectListContainer />
+          </div>
         </div>
       </div>
     );
-  } 
+  }
 }
 
-const mapStateToPros = (state: StoreState) => ( {
+const mapStateToPros = (state: StoreState) => ({
   projects: state.projectsState,
   criteria: state.criteriaState
 });
 
-const mapDispatchToPros = (dispatch: any) => ( {
+const mapDispatchToPros = (dispatch: any) => ({
 });
 
 export default connect(
