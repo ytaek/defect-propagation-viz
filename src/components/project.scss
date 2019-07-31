@@ -31,6 +31,22 @@ $score_thresholder_left_space: $project_name_width+$project_ox_width;
   flex-shrink: 0;
 }
 
+.main-cell{
+  border-right: 2px solid white;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+  &.no-padding{
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+.project-header{
+  .main-cell{
+    border-right-color: transparent;
+  }
+}
+
 .score {
   display: flex;
   justify-content: flex-start;

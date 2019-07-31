@@ -49,7 +49,7 @@ export class ProjectItem extends React.Component<Props> {
           style={{
             backgroundColor:gradColor
           }}>
-        <div className="project-name">{project.code}</div>
+        <div className="project-name main-cell">{project.code}</div>
         {/* {
           this.props.candidateCriterionValueList.map( (cv: CriterionValueInterface) => (
             project.attributes[cv.criterion!.name] === cv.name ? (
@@ -59,10 +59,10 @@ export class ProjectItem extends React.Component<Props> {
             ): "-"
           ))
         } */}
-        <div className="candidate-ox">
+        <div className="candidate-ox main-cell">
           {project.candidateOXList!.map( (c, i) => (<b key={i} style={{color:darkColors[i]}}>{c} </b>))}
         </div>
-        <div className="score">
+        <div className="score main-cell no-padding">
           <div style={{
             width: 150 * Math.abs(project.score),
             backgroundColor: "#cccccc",

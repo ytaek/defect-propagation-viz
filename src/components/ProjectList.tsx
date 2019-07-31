@@ -158,15 +158,15 @@ class ProjectList extends React.Component<Props, State> {
             ))
           }
         </div> */}
-        <div className="flex-container flex-align-items-center">
-          <div className="project-name"><b>NAME</b></div>
-          <div className="candidate-ox">
+        <div className="flex-container flex-align-items-center project-header">
+          <div className="project-name main-cell"><b>NAME</b></div>
+          <div className="candidate-ox main-cell">
             <b>CANDIDATE</b> <br />
             {this.props.criteria.map((d: any, i: number) => (
               <b key={i} style={{ color: darkColors[i] }}>{i + 1} </b>
             ))}
           </div>
-          <div className="score">
+          <div className="score main-cell">
             <b>SCORE BAR<br />(Min:-100, Max:100)</b>
           </div>
           <div>
