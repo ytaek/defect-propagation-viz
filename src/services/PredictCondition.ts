@@ -104,8 +104,10 @@ export class PredictCondition {
 
 
 
-        predictionList.forEach(d => {
-            prediction[d[0]] = d[1];
+        predictionList.forEach((d, i) => {
+            if(i < this.threshold) {
+                prediction[d[0]] = d[1];
+            }
         })
         console.log(prediction);
 
