@@ -1,13 +1,18 @@
 
+// 사용법 
+/*
+const pc : PredictCondition = new PredictCondition(20);  // set threshold
+pc.predict(["PMLFUNPJT-0004", "PMLFUNPJT-0100", "PMLFUNPJT-0001", "PRJ-0002", "PMLFUNPJT-0006", "PRJ-0001"]);
+ 
 
+*/
 
 export class PredictCondition {
 
     private mode : string;  // negative or positive
     private threshold : number;  // max number of conditions to be set
 
-    private path : string = "../data/projects.json";  // can change it 
-    private cirteriaTypes : Array<string> = [
+    private cirteriaTypes : string[] = [
         "oem", 
         "capacity",
         "density",
@@ -16,16 +21,14 @@ export class PredictCondition {
         "nandDesign"
     ];
 
-    constructor(mode : string, threshold : number) {
-        this.mode = mode;
+    constructor(threshold : number) {
         this.threshold = threshold;
     }
 
-    set setMode(newMode : string) { this.mode = newMode; }
     set setThreshold(newThreshold : number) { this.threshold = newThreshold; }
 
-    predict(products : Array<string>) {
-        let prediction : {
+    predict(products : string[]) {
+        const prediction : {
             [key: string] : number
         } = {};
         // 각 criteria type (oem, nandCell, formFactor, density, nandDesign, capcity)
@@ -35,27 +38,33 @@ export class PredictCondition {
 
 
         // step 1: make dictionary while setting product code as key
-        const entireProductList : Array<string> = require(this.path);
+        // console.log(this.path);
+        const entireProductList : string[] = require("../data/projects.json");
 
-        let productsSet : Set<string> = new Set(products);
-        let productsDict = {};
-        products.forEach(product => {
-            if (productsSet.has(product)) {
-                productsDict[product["code"]] = product;
+        const productsSet : Set<string> = new Set(products);
+        const productsDict : { [key:string] : string}= {};
+        const code = "code";
+        entireProductList.forEach(product => {
+            if (productsSet.has(product[code])) {
+                productsDict[product[code]] = product;
             }
         });
         // step 2: calculate cross entropy per types
-        let criteriaTypeInfo : any = {};
+        const criteriaTypeInfo : any = {};
         
         
         let minEntropy = Number.MAX_VALUE;
+        // max Entropy case: maximum distributed (no info about common criteria)
+        const maxEntropy = - (1 / products.length) * Math.log2(1 / products.length) * products.length
         this.cirteriaTypes.forEach(type => {
-            let criteriaDict : {[key:string] : number}= {};
+            const criteriaDict : {[key:string] : number}= {};
             Object.values(productsDict).forEach(product => {
-                if (product["type"] in Object.keys(criteriaDict))
-                    criteriaDict[product["type"]] += 1;
-                else 
-                    criteriaDict[product["type"]] = 1;
+                if (product[type] in criteriaDict) {
+                    criteriaDict[product[type]] += 1;
+                }
+                else { 
+                    criteriaDict[product[type]] = 1;
+                }
             });
             Object.keys(criteriaDict).forEach(key => {
                 criteriaDict[key] = criteriaDict[key] / products.length;
@@ -73,13 +82,18 @@ export class PredictCondition {
             minEntropy = minEntropy < entropy ? minEntropy : entropy;
         });
 
-        let predictionList = [];
+        console.log(criteriaTypeInfo);
+
+        const predictionList : any[] = [];
         // step 3 : calculate default weight for each criteria type
         Object.keys(criteriaTypeInfo).forEach(type => {
-            let typeEntropy : number = criteriaTypeInfo[type]["entropy"];
-            criteriaTypeInfo[type]["defaultWeight"] = minEntropy / typeEntropy;
-            Object.keys(criteriaTypeInfo[type]["criteriaProbs"]).forEach(criteria => {
-                let weight = criteriaTypeInfo[type]["criteriaProbs"][criteria] * criteriaTypeInfo[type]["defaultWeight"];
+            const entropyLit = "entropy";
+            const defaultWeightLit = "defaultWeight";
+            const criteriaProbsLit = "criteriaProbs";
+            const typeEntropy : number = criteriaTypeInfo[type][entropyLit];
+            criteriaTypeInfo[type][defaultWeightLit] = (maxEntropy - typeEntropy) / (maxEntropy - minEntropy);
+            Object.keys(criteriaTypeInfo[type][criteriaProbsLit]).forEach(criteria => {
+                const weight = criteriaTypeInfo[type][criteriaProbsLit][criteria] * criteriaTypeInfo[type][defaultWeightLit];
                 predictionList.push([criteria, weight]);
             });
         });
@@ -90,6 +104,9 @@ export class PredictCondition {
 
 
 
+        predictionList.forEach(d => {
+            prediction[d[0]] = d[1];
+        })
         console.log(prediction);
 
 
