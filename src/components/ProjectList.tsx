@@ -8,11 +8,12 @@ import { ProjectsState } from 'src/redux/modules/projects';
 const CANDIDATE_WEIGHT_WIDTH = 150;
 
 interface Props {
-  projectState: ProjectsState;
+  projectsState: ProjectsState;
   criteria: CriterionInterface[];
   // onOrder(): void;
   onSetCandThreshold(th: number): void;
   onSetNonCandThreshold(th: number): void;
+  projectSelectedByUser(proj: string): void;
 }
 
 interface State {
@@ -66,10 +67,10 @@ class ProjectList extends React.Component<Props, State> {
   }
 
   render() {
-    const { projectState: projectState, criteria } = this.props;
-    const projects = projectState.projects;
+    const { projectsState: projectsState, criteria } = this.props;
+    const projects = projectsState.projects;
 
-    const thresholdScore = projectState.thresholdScore || this.state.immediateThresholdScore || 0; 
+    const thresholdScore = projectsState.thresholdScore || this.state.immediateThresholdScore || 0; 
 
     const colors = d3.schemePastel2;
     const darkColors = d3.schemeSet2;
@@ -210,6 +211,10 @@ class ProjectList extends React.Component<Props, State> {
                 project={prj}
                 criteria={criteria}
                 candThreshold={thresholdScore}
+                showValues={projectsState.showValues}
+                projectSelectedByUser={this.props.projectSelectedByUser}
+                userSelectedCandidateNames={projectsState.userSelectedCandidateNames}
+
                 key={i} />
             )
           }
@@ -244,6 +249,10 @@ class ProjectList extends React.Component<Props, State> {
                 project={prj}
                 criteria={criteria}
                 candThreshold={thresholdScore}
+                showValues={projectsState.showValues}
+                projectSelectedByUser={this.props.projectSelectedByUser}
+                userSelectedCandidateNames={projectsState.userSelectedCandidateNames}
+
                 key={i} />
             )
           }
@@ -258,6 +267,9 @@ class ProjectList extends React.Component<Props, State> {
                 project={prj}
                 criteria={criteria}
                 candThreshold={thresholdScore}
+                showValues={projectsState.showValues}
+                projectSelectedByUser={this.props.projectSelectedByUser}
+                userSelectedCandidateNames={projectsState.userSelectedCandidateNames}
                 key={i} />
             )
           }

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.11.2",
     "@material/react-material-icon": "^0.14.1",
     "@types/classnames": "^2.2.9",
     "@types/d3": "^5.7.2",

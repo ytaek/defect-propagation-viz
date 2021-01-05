@@ -27,7 +27,7 @@ export class PredictCondition {
 
     set setThreshold(newThreshold : number) { this.threshold = newThreshold; }
 
-    predict(products : string[]) {
+    predict(products : string[]):any {
         const prediction : {
             [key: string] : number
         } = {};

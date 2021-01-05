@@ -6,11 +6,16 @@ export interface ProjectsState {
   projects: ProjectInterface[];
   thresholdScore: number;
   nonCandThresholdScore: number;
+  showValues: boolean;
+  userSelectedCandidateNames: string[];
 }
 
 export const CALCULATE_SCORE = "project/CALCULATE_SCORE";
 export const SET_CAND_THRESHOLD = "project/SET_CAND_THRESHOLD";
 export const SET_NONCAND_THRESHOLD = "project/SET_NONCAND_THRESHOLD";
+export const SET_SHOW_VALUES = "project/SET_SHOW_VALUES";
+export const ADD_CANDIDATE = "project/ADD_CANDIDATE";
+export const REMOVE_CANDIDATE = "project/REMOVE_CANDIDATE";
 
 interface CalculateScoreAction {
   type: typeof CALCULATE_SCORE;
@@ -33,10 +38,34 @@ interface SetNonCandThresholdAction {
   }
 }
 
+interface SetShowValuesAction {
+  type: typeof SET_SHOW_VALUES;
+  payload: {
+    showValues: boolean;
+  }
+}
+
+interface AddCandidate {
+  type: typeof ADD_CANDIDATE;
+  payload: {
+    proj: string;
+  }
+}
+
+interface RemoveCandidate {
+  type: typeof REMOVE_CANDIDATE;
+  payload: {
+    proj: string;
+  }
+}
+
 export type ProjectsActionTypes = 
   CalculateScoreAction
   | SetCandThresholdAction
   | SetNonCandThresholdAction
+  | SetShowValuesAction
+  | AddCandidate
+  | RemoveCandidate
   ;
 
 
@@ -71,10 +100,40 @@ function setNonCandThreshold(th: number) {
   }
 }
 
+function setShowValues(b: boolean) {
+  return {
+    type: SET_SHOW_VALUES,
+    payload: {
+      showValues: b
+    }
+  }
+}
+
+function addCandidate(name: string) {
+  return {
+    type: ADD_CANDIDATE,
+    payload: {
+      proj: name
+    }
+  }
+}
+
+function removeCandidate(name: string) {
+  return {
+    type: REMOVE_CANDIDATE,
+    payload: {
+      proj: name
+    }
+  }
+}
+
 export const projectsActionCreators = {
   setCandThreshold,
   calculateScore,
-  setNonCandThreshold
+  setNonCandThreshold,
+  setShowValues,
+  addCandidate,
+  removeCandidate,
 }
 
 // reducers
@@ -82,7 +141,9 @@ export const projectsActionCreators = {
 const initialState: ProjectsState = {
   thresholdScore: 0,
   nonCandThresholdScore: 0,
-  projects: []
+  projects: [],
+  showValues: false,
+  userSelectedCandidateNames: [],
 }
 
 export function projectReducer(
@@ -108,6 +169,14 @@ export function projectReducer(
       return update(state, {thresholdScore: {$set:action.payload.thresholdScore}});
     case SET_NONCAND_THRESHOLD:
       return update(state, {nonThresholdScore: {$set:action.payload.nonCandThresholdScore}});
+    case SET_SHOW_VALUES:
+      return update(state, {showValues: {$set:action.payload.showValues}});
+    case ADD_CANDIDATE:
+      return update(state, {userSelectedCandidateNames: {$set:state.userSelectedCandidateNames.concat(action.payload.proj)}});
+    case REMOVE_CANDIDATE:
+      return update(state, {userSelectedCandidateNames: 
+          {$set:state.userSelectedCandidateNames.filter(proj => proj !== action.payload.proj)}}
+      );
     default:
       return state;
   }

@@ -7,9 +7,9 @@ import { StoreState } from 'src/redux/modules';
 import ProjectList from 'src/components/ProjectList';
 
 interface Props {
-    projectState: ProjectsState;
+    projectsState: ProjectsState;
     criteria: CriterionInterface[];
-    projectsActions: typeof projectsActionCreators; 
+    projectsActions: typeof projectsActionCreators;
 }
 
 class ProjectListContainer extends React.Component<Props> {
@@ -24,14 +24,15 @@ class ProjectListContainer extends React.Component<Props> {
 
     render() {
         const { projectsActions, criteria } = this.props;
-console.log("Container render reloaded!!", this.props.criteria)
+console.log("Container render reloaded!!", this.props.criteria, this.props.projectsState)
         return (
             <div>
                 <ProjectList
-                    projectState={this.props.projectState}
+                    projectsState={this.props.projectsState}
                     criteria={this.props.criteria}
                     onSetCandThreshold={this.onSetCandThreshold}
                     onSetNonCandThreshold={this.onSetNonCandThreshold}
+                    projectSelectedByUser={this.projectSelectedByUser}
                 />
             </div>
         );
@@ -41,16 +42,34 @@ console.log("Container render reloaded!!", this.props.criteria)
         const { projectsActions } = this.props;
         projectsActions.setCandThreshold(th);
 
-        console.log(th, this.props.projectState.thresholdScore);
+        console.log(th, this.props.projectsState.thresholdScore);
     }
 
     onSetNonCandThreshold = (th: number): void => {
-        projectsActionCreators.setNonCandThreshold(th);
+        // projectsActionCreators.setNonCandThreshold(th);
+    }
+
+    projectSelectedByUser = (name: string): void => {
+        if (this.props.projectsState.userSelectedCandidateNames.indexOf(name) === -1) {
+            this.addCandidate(name);
+        } else{
+            this.removeCandidate(name);
+        }
+    }
+    
+    addCandidate = (proj: string): void => {
+        this.props.projectsActions.addCandidate(proj);
+        console.log("addCand:", proj,this.props.projectsState.userSelectedCandidateNames);
+    }
+
+    removeCandidate = (proj: string): void => {
+        this.props.projectsActions.removeCandidate(proj);
+        console.log("removeCand:", proj,this.props.projectsState.userSelectedCandidateNames);
     }
 }
 
 const mapStateToPros = (state: StoreState) => ({
-    projectState: state.projectsState,
+    projectsState: state.projectsState,
     criteria: state.criteriaState.criteria
 });
 
