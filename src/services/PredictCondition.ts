@@ -99,14 +99,14 @@ export class PredictCondition {
         });
 
         // step 4: sort and cut off criterias with smaller weight with threshold
-        
+        console.log(predictionList);
 
-
+        predictionList.sort((a, b) => (b[1] - a[1]));
 
 
         predictionList.forEach((d, i) => {
             if(i < this.threshold) {
-                prediction[d[0]] = d[1];
+                prediction[d[0]] = Math.round(d[1] * 10) / 10;
             }
         })
         console.log(prediction);
