@@ -9,6 +9,7 @@ import { CriterionWeightControl } from './CriterionWeightControl';
 
 interface Props {
   criterion: CriterionInterface;
+  inferredWeights: {};
   onSetWeight(c: CriterionInterface, weight: number): void;
   onValueToggleWeight(cv: CriterionValueInterface): void;
   onValueSetWeight(cv:CriterionValueInterface, weight: number): void;
@@ -16,14 +17,18 @@ interface Props {
 
 export class CriterionItem extends React.Component<Props> {
   render() {
-
+    const maxInferenceWeight = Math.max(...this.props.criterion.values.filter( cv => cv.name in this.props.inferredWeights )
+      .map(cv => this.props.inferredWeights[cv.name]).concat(-1));
+    
     return (
       <Row className="criterion-row">
         <Col xs={3} className="criterion-name">
           {this.props.criterion.name}
           <CriterionWeightControl
             onSetWeight={this.props.onSetWeight}
-            criterion={this.props.criterion}/>
+            criterion={this.props.criterion}
+            maxInferenceWeight={maxInferenceWeight}
+          />
         </Col>
         <Col xs={9} className="criterion-category-list-container">
           {this.props.criterion.values.map(
@@ -32,7 +37,9 @@ export class CriterionItem extends React.Component<Props> {
                 key={i}
                 onToggleWeight={this.props.onValueToggleWeight}
                 onSetWeight={this.props.onValueSetWeight}
-                criterionValue={cv}/>
+                criterionValue={cv}
+                inferredWeight={this.props.inferredWeights[cv.name]}
+              />
             )
           )}
         </Col>

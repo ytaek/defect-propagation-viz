@@ -5,6 +5,7 @@ import {Container} from 'react-bootstrap';
 
 interface Props {
     criteria: CriterionInterface[];
+    inferredWeights: {};
     onSetWeight(c:CriterionInterface, weight: number): void;
     onValueToggleWeight(cv: CriterionValueInterface): void;
     onValueSetWeight(cv:CriterionValueInterface, weight: number): void;
@@ -22,6 +23,7 @@ class CriterionList extends React.Component<Props> {
             this.props.criteria.map((d, i) => 
               <CriterionItem 
                 criterion={d}
+                inferredWeights={this.props.inferredWeights}
                 onSetWeight={this.props.onSetWeight}
                 onValueToggleWeight={this.props.onValueToggleWeight}
                 onValueSetWeight={this.props.onValueSetWeight}

@@ -9,6 +9,7 @@ import { projectsActionCreators } from 'src/redux/modules/projects';
 
 interface Props {
   criteria: CriterionInterface[];
+  inferredWeights: {};
   criteriaActions: typeof criteriaActionCreators;
   projectsActions: typeof projectsActionCreators;
 }
@@ -21,6 +22,7 @@ class CriterionListContainer extends React.Component<Props> {
     return (
       <CriterionList
         criteria={this.props.criteria}
+        inferredWeights={this.props.inferredWeights}
         onSetWeight={this.onSetWeight}
         onValueToggleWeight={this.onValueToggleWeight}
         onValueSetWeight={this.onValueSetWeight}
@@ -51,7 +53,8 @@ class CriterionListContainer extends React.Component<Props> {
 }
 
 const mapStateToPros = (state: StoreState) => ({
-  criteria: state.criteriaState.criteria
+  criteria: state.criteriaState.criteria,
+  inferredWeights: state.criteriaState.inferredWeights,
 });
 
 const mapDispatchToPros = (dispatch: any) => ({

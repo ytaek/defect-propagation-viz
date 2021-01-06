@@ -9,6 +9,7 @@ import { connect } from "react-redux";
 import { CriteriaState } from './redux/modules/criteria';
 import { projectsActionCreators, ProjectsState } from './redux/modules/projects';
 import { bindActionCreators } from 'redux';
+import { criteriaActionCreators } from 'src/redux/modules/criteria';
 
 import Button from '@material-ui/core/Button';
 
@@ -16,6 +17,7 @@ interface Props {
   criteria: CriteriaState;
   projects: ProjectsState;
   projectsActions: typeof projectsActionCreators;
+  criteriaActions: typeof criteriaActionCreators;
 }
 
 class App extends React.Component<Props> {
@@ -48,11 +50,14 @@ class App extends React.Component<Props> {
     const pc : PredictCondition = new PredictCondition(20);  // set threshold
     const result = pc.predict(candNames);
 
+    this.props.criteriaActions.setWeightInference(result);
+
     console.log(result);
   }
 
   clearInference = (): void => {
-    console.log("clear")
+    console.log("clear");
+    this.props.criteriaActions.setWeightInference({});
   }
 
   render() {
@@ -110,7 +115,8 @@ const mapStateToPros = (state: StoreState) => ({
 });
 
 const mapDispatchToPros = (dispatch: any) => ({
-    projectsActions: bindActionCreators(projectsActionCreators, dispatch)
+    criteriaActions: bindActionCreators(criteriaActionCreators, dispatch),
+    projectsActions: bindActionCreators(projectsActionCreators, dispatch),
 });
 
 export default connect(

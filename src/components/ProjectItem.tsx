@@ -54,9 +54,11 @@ export class ProjectItem extends React.Component<Props> {
 
     let bColor = "#e2e2e2";
     let fColor = "#212529";
+    let code = project.code;
     if (this.props.userSelectedCandidateNames.indexOf(project.code) > -1) {
       bColor = "blue";
       fColor = "blue";
+      code = "✔" + project.code;
     }
 
     return (
@@ -70,7 +72,7 @@ export class ProjectItem extends React.Component<Props> {
         <div className="project-name main-cell"
           style={{cursor:"pointer", color:fColor}}
           onClick={() => this.projectSelectedByUser(project.code)}
-        >{project.code}</div>
+        >{code}</div>
         {/* {
           this.props.candidateCriterionValueList.map( (cv: CriterionValueInterface) => (
             project.attributes[cv.criterion!.name] === cv.name ? (

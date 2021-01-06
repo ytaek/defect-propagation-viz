@@ -1,15 +1,18 @@
 import { CriterionInterface, CriterionValueInterface, CriterionValueStatus } from 'src/services/DataService';
 import update from 'react-addons-update';
+import { curveBasisClosed } from 'd3';
 // import { csv } from 'd3';
 
 // types
 export interface CriteriaState {
   criteria: CriterionInterface[];
+  inferredWeights: {};
 }
 
 export const SET_WEIGHT = "criteria/SET_WEIGHT";
 export const VALUE_TOGGLE_WEIGHT = "criteria/VALUE_TOGGLE_WEIGHT";
 export const VALUE_SET_WEIGHT = "criteria/VALUE_SET_WEIGHT";
+export const SET_WEIGHT_INFERENCE = "criterai/SET_WEIGHT_INFERENCE";
 
 interface SetWeightAction {
   type: typeof SET_WEIGHT;
@@ -32,11 +35,19 @@ interface ValueSetWeightAction {
   }
 }
 
+interface SetWeightInference {
+  type: typeof SET_WEIGHT_INFERENCE;
+  payload: {
+    cvWeightMap: {},
+  }
+}
+
 
 export type CriteriaActionTypes =
   SetWeightAction
   | ValueToggleWeightAction
   | ValueSetWeightAction
+  | SetWeightInference
   ;
 
 // actions
@@ -73,7 +84,16 @@ function valueSetWeight(cv: CriterionValueInterface) {
   return {
     type: VALUE_SET_WEIGHT,
     payload: {
-      criterionValue: cv
+      criterionValue: cv,
+    }
+  }
+}
+
+function setWeightInference(cvw: any) {
+  return {
+    type: SET_WEIGHT_INFERENCE,
+    payload: {
+      cvWeightMap: cvw
     }
   }
 }
@@ -81,13 +101,15 @@ function valueSetWeight(cv: CriterionValueInterface) {
 export const criteriaActionCreators = {
   setWeight,
   valueToggleWeight,
-  valueSetWeight
+  valueSetWeight,
+  setWeightInference,
 }
 
 // reducers
 
 const initialState: CriteriaState = {
   criteria: [],
+  inferredWeights: {},
 }
 
 export function criteriaReducer(
@@ -97,8 +119,17 @@ export function criteriaReducer(
   switch (action.type) {
     case SET_WEIGHT:
 console.log("SET_WEIGHT!!")
-      return {
-        criteria: update(
+      // return update(state, {
+      //   criteria: update(
+      //     state.criteria,
+      //     {
+      //       [action.payload.criterion.id]: {
+      //         weight: { $set: action.payload.criterion.weight}
+      //       }
+      //     }
+      //   )
+      // });
+      return update(state, {criteria: {$set:update(
           state.criteria,
           {
             [action.payload.criterion.id]: {
@@ -106,10 +137,10 @@ console.log("SET_WEIGHT!!")
             }
           }
         )
-      }
+      }});
     case VALUE_TOGGLE_WEIGHT:
-      return {
-        criteria: update(
+      return update(state, {
+        criteria: {$set:update(
           state.criteria,
           {
             [action.payload.criterionValue.criterion!.id]: {
@@ -122,10 +153,10 @@ console.log("SET_WEIGHT!!")
             }
           }
         )
-      }
+      }});
     case VALUE_SET_WEIGHT:
-      return {
-        criteria: update(
+      return update(state, {
+        criteria: {$set:update(
           state.criteria,
           {
             [action.payload.criterionValue.criterion!.id]: {
@@ -137,7 +168,9 @@ console.log("SET_WEIGHT!!")
             }
           }
         )
-      }
+      }});
+    case SET_WEIGHT_INFERENCE:
+      return update(state, {inferredWeights: {$set:action.payload.cvWeightMap}});
     default:
       return state;
   }

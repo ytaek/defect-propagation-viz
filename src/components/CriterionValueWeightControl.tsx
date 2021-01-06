@@ -1,9 +1,11 @@
 import * as React from "react";
 import { CriterionInterface, CriterionValueInterface, CriterionValueStatus } from 'src/services/DataService';
 import * as d3 from "d3";
+import { red } from '@material-ui/core/colors';
 
 interface Props {
   criterionValue: CriterionValueInterface;
+  inferredWeight: number;
   onToggleWeight(cv: CriterionValueInterface): void;
   onSetWeight(cv: CriterionValueInterface, weight: number): void;
 }
@@ -64,10 +66,21 @@ export class CriterionValueWeightControl extends React.Component<Props, State> {
 
   render() {
     const colors = d3.schemePastel2;
+    const inferredWeight = (this.props.inferredWeight === undefined ? -1 : this.props.inferredWeight);
 
+    const baseColorRatio = 0.2;
+    const bdColor = (inferredWeight > this.props.criterionValue.weight
+      ? d3.interpolateRgb("#dedede", "red")(inferredWeight - this.props.criterionValue.weight + baseColorRatio) 
+      : "#dedede");
+    const bgColor = (inferredWeight > this.props.criterionValue.weight 
+      ? d3.interpolateRgb("#fafafa", "red")(inferredWeight - this.props.criterionValue.weight + baseColorRatio) 
+      : "#fafafa");
+    const inferenceWeightPercentage = inferredWeight*100;
+    const bgImage = `linear-gradient(90deg, red ${inferenceWeightPercentage}%, white ${inferenceWeightPercentage}%)`;
+console.log("compare: ", inferredWeight, this.props.criterionValue.weight);
     const styleObj = {
       backgroundColor: (colors[this.props.criterionValue.criterion!.id])
-    } as any
+    } as any;
     
     const weight = (this.state.immediateWeight || this.props.criterionValue.weight)
 
@@ -75,17 +88,27 @@ export class CriterionValueWeightControl extends React.Component<Props, State> {
 
     if(weight > 0){
       styleObj.bottom = '50%'
-    }else{
+    } else {
       styleObj.top = '50%'
     }
+    
+    const weightStyleObj = {
+      backgroundColor: bgColor,
+      bottom: '50%',
+      height: Math.abs(inferenceWeightPercentage/2) + "%"
+    };
 
     const indicatorStyleObj = {
       top: ((-weight + 1)/2 * 100) + "%"
-    }
+    };
 
     let weightView;
     if (this.props.criterionValue.status === CriterionValueStatus.WEIGHT) {
-      weightView = <div className="weight-slider" onMouseDown={this.onMouseDown}>
+      weightView = <div className="weight-slider" 
+          style={{borderColor: bdColor}}
+          onMouseDown={this.onMouseDown}
+        >
+        <div className="slider-bar" style={weightStyleObj} />
         <div className="slider-bar" style={styleObj} />
         <div className="zero-indicator"/>
         <div className="loc-indicator start" style={indicatorStyleObj}/>
@@ -94,7 +117,7 @@ export class CriterionValueWeightControl extends React.Component<Props, State> {
     }
 
     return (
-      <div className="category">
+      <div className="category" >
         <div className="name">{this.props.criterionValue.name}</div>
         <div className="status-container">
           <div className="status-button" onClick={this.handleClick}>

@@ -4,6 +4,7 @@ import * as d3 from "d3";
 
 interface Props {
   criterion: CriterionInterface;
+  maxInferenceWeight: number;
   onSetWeight(cv: CriterionInterface, weight: number): void;
 }
 
@@ -58,14 +59,27 @@ export class CriterionWeightControl extends React.Component<Props, State> {
 
   render() {
     const colors = d3.schemePastel2;
+    const baseColorRatio = 0.2;
+    const bdColor = (this.props.maxInferenceWeight > this.props.criterion.weight ? 
+      d3.interpolateRgb("#dedede", "red")(this.props.maxInferenceWeight - this.props.criterion.weight + baseColorRatio): "");
+    const bgColor = (this.props.maxInferenceWeight > this.props.criterion.weight ? 
+      d3.interpolateRgb("#ffffff", "red")(this.props.maxInferenceWeight - this.props.criterion.weight + baseColorRatio): "");
+  
+    const inferenceWeightPercentage = Math.max(this.props.maxInferenceWeight*100, 0);
+    const bgImage = `linear-gradient(90deg, ${bgColor} ${inferenceWeightPercentage}%, white ${inferenceWeightPercentage}%)`;
+
+  console.log("maxInferenceWeight", this.props.maxInferenceWeight, inferenceWeightPercentage, bgImage);
+
     let weightView;
-    weightView = <div className="criterion-weight-slider" onMouseDown={this.onMouseDown}>
+    weightView = <div className="criterion-weight-slider" 
+          style={{borderColor:bdColor, backgroundImage:bgImage}} 
+          onMouseDown={this.onMouseDown}>
         <div className="slider-bar" style={{
           width: (this.state.immediateWeight || this.props.criterion.weight) * 100 + '%',
           backgroundColor: (colors[this.props.criterion.id])
         }} />
       </div>
-
+console.log("changed", weightView)
     return (
       <div className="status-container">
         {weightView}
