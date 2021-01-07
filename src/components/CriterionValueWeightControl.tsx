@@ -73,10 +73,10 @@ export class CriterionValueWeightControl extends React.Component<Props, State> {
     const baseColorRatio = 0.2;
     // const diff = Math.min(inferredWeight - this.props.criterionValue.weight, 1)
     const bdColor = (inferredWeight > calculatedWeight
-      ? d3.interpolateRgb("#dedede", "#f50057")(Math.min((inferredWeight - calculatedWeight), 1) + baseColorRatio)
+      ? d3.interpolateRgb("#dedede", "#c62828")(Math.min((inferredWeight - calculatedWeight), 1) + baseColorRatio)
       : "#dedede");
     const bgColor = (inferredWeight > calculatedWeight 
-      ? d3.interpolateRgb("#fafafa", "#f50057")(Math.min((inferredWeight - calculatedWeight), 1) + baseColorRatio)
+      ? d3.interpolateRgb("#fafafa", "#c62828")(Math.min((inferredWeight - calculatedWeight), 1) + baseColorRatio)
       : "#fafafa");
     const inferenceWeightPercentage = Math.max(Math.min((inferredWeight / this.props.criterionWeight), 1) * 100, 0);
 
