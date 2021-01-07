@@ -5,6 +5,7 @@ import { red } from '@material-ui/core/colors';
 
 interface Props {
   criterionValue: CriterionValueInterface;
+  criterionWeight: number;
   inferredWeight: number;
   onToggleWeight(cv: CriterionValueInterface): void;
   onSetWeight(cv: CriterionValueInterface, weight: number): void;
@@ -67,17 +68,22 @@ export class CriterionValueWeightControl extends React.Component<Props, State> {
   render() {
     const colors = d3.schemePastel2;
     const inferredWeight = (this.props.inferredWeight === undefined ? -1 : this.props.inferredWeight);
+    const calculatedWeight = this.props.criterionValue.weight * this.props.criterionWeight;
 
     const baseColorRatio = 0.2;
-    const bdColor = (inferredWeight > this.props.criterionValue.weight
-      ? d3.interpolateRgb("#dedede", "red")(inferredWeight - this.props.criterionValue.weight + baseColorRatio) 
+    // const diff = Math.min(inferredWeight - this.props.criterionValue.weight, 1)
+    const bdColor = (inferredWeight > calculatedWeight
+      ? d3.interpolateRgb("#dedede", "#f50057")(Math.min((inferredWeight - calculatedWeight), 1) + baseColorRatio)
       : "#dedede");
-    const bgColor = (inferredWeight > this.props.criterionValue.weight 
-      ? d3.interpolateRgb("#fafafa", "red")(inferredWeight - this.props.criterionValue.weight + baseColorRatio) 
+    const bgColor = (inferredWeight > calculatedWeight 
+      ? d3.interpolateRgb("#fafafa", "#f50057")(Math.min((inferredWeight - calculatedWeight), 1) + baseColorRatio)
       : "#fafafa");
-    const inferenceWeightPercentage = inferredWeight*100;
-    const bgImage = `linear-gradient(90deg, red ${inferenceWeightPercentage}%, white ${inferenceWeightPercentage}%)`;
-console.log("compare: ", inferredWeight, this.props.criterionValue.weight);
+    const inferenceWeightPercentage = Math.max(Math.min((inferredWeight / this.props.criterionWeight), 1) * 100, 0);
+
+if (this.props.criterionValue.name === "CO.A") {
+  console.log("weight = ", inferredWeight, calculatedWeight, inferenceWeightPercentage, Math.min((inferredWeight - calculatedWeight), 1) + baseColorRatio, );
+}
+// console.log("compare: ", inferredWeight, this.props.criterionValue.weight);
     const styleObj = {
       backgroundColor: (colors[this.props.criterionValue.criterion!.id])
     } as any;

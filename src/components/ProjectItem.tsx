@@ -56,8 +56,8 @@ export class ProjectItem extends React.Component<Props> {
     let fColor = "#212529";
     let code = project.code;
     if (this.props.userSelectedCandidateNames.indexOf(project.code) > -1) {
-      bColor = "blue";
-      fColor = "blue";
+      bColor = "#f50057";
+      fColor = "#f50057";
       code = "✔" + project.code;
     }
 

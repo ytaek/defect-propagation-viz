@@ -12,6 +12,7 @@
     "@types/redux-actions": "^2.6.1",
     "bootstrap": "^4.3.1",
     "d3": "^5.9.7",
+    "gh-pages": "^3.1.0",
     "react": "^16.8.6",
     "react-addons-update": "^15.6.2",
     "react-bootstrap": "^1.0.0-beta.9",
@@ -29,7 +30,9 @@
     "start": "npm-run-all -p watch:css start:js",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject"
+    "eject": "react-scripts-ts eject",
+    "deploy": "gh-pages -d build",
+    "clean": "gh-pages-clean"
   },
   "devDependencies": {
     "@types/jest": "^24.0.15",
@@ -40,5 +43,6 @@
     "node-sass": "^4.12.0",
     "npm-run-all": "^4.1.5",
     "typescript": "^3.5.2"
-  }
+  },
+  "homepage": "https://ytaek.github.io/defect-propagation-viz/"
 }

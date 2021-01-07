@@ -24,7 +24,7 @@ class ProjectListContainer extends React.Component<Props> {
 
     render() {
         const { projectsActions, criteria } = this.props;
-console.log("Container render reloaded!!", this.props.criteria, this.props.projectsState)
+// console.log("Container render reloaded!!", this.props.criteria, this.props.projectsState)
         return (
             <div>
                 <ProjectList

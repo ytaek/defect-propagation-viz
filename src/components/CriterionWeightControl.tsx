@@ -53,7 +53,7 @@ export class CriterionWeightControl extends React.Component<Props, State> {
   onMouseMove(event: any) {
 
     const deltaX = event.clientX - this.mouseDownClientX
-    console.log("deltaX: ", deltaX)
+    // console.log("deltaX: ", deltaX)
     this.setState({ immediateWeight: Math.min(1, Math.max(0, (this.mouseDownSliderX + deltaX) / this.sliderWidth)) });
   }
 
@@ -61,14 +61,14 @@ export class CriterionWeightControl extends React.Component<Props, State> {
     const colors = d3.schemePastel2;
     const baseColorRatio = 0.2;
     const bdColor = (this.props.maxInferenceWeight > this.props.criterion.weight ? 
-      d3.interpolateRgb("#dedede", "red")(this.props.maxInferenceWeight - this.props.criterion.weight + baseColorRatio): "");
+      d3.interpolateRgb("#dedede", "#f50057")(this.props.maxInferenceWeight - this.props.criterion.weight + baseColorRatio): "");
     const bgColor = (this.props.maxInferenceWeight > this.props.criterion.weight ? 
-      d3.interpolateRgb("#ffffff", "red")(this.props.maxInferenceWeight - this.props.criterion.weight + baseColorRatio): "");
+      d3.interpolateRgb("#ffffff", "#f50057")(this.props.maxInferenceWeight - this.props.criterion.weight + baseColorRatio): "");
   
     const inferenceWeightPercentage = Math.max(this.props.maxInferenceWeight*100, 0);
     const bgImage = `linear-gradient(90deg, ${bgColor} ${inferenceWeightPercentage}%, white ${inferenceWeightPercentage}%)`;
 
-  console.log("maxInferenceWeight", this.props.maxInferenceWeight, inferenceWeightPercentage, bgImage);
+  // console.log("maxInferenceWeight", this.props.maxInferenceWeight, inferenceWeightPercentage, bgImage);
 
     let weightView;
     weightView = <div className="criterion-weight-slider" 
@@ -79,7 +79,6 @@ export class CriterionWeightControl extends React.Component<Props, State> {
           backgroundColor: (colors[this.props.criterion.id])
         }} />
       </div>
-console.log("changed", weightView)
     return (
       <div className="status-container">
         {weightView}

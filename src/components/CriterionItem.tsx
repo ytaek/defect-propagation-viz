@@ -17,6 +17,8 @@ interface Props {
 
 export class CriterionItem extends React.Component<Props> {
   render() {
+// console.log("criterion", this.props.criterion);
+
     const maxInferenceWeight = Math.max(...this.props.criterion.values.filter( cv => cv.name in this.props.inferredWeights )
       .map(cv => this.props.inferredWeights[cv.name]).concat(-1));
     
@@ -38,6 +40,7 @@ export class CriterionItem extends React.Component<Props> {
                 onToggleWeight={this.props.onValueToggleWeight}
                 onSetWeight={this.props.onValueSetWeight}
                 criterionValue={cv}
+                criterionWeight={this.props.criterion.weight}
                 inferredWeight={this.props.inferredWeights[cv.name]}
               />
             )

@@ -72,8 +72,6 @@ export type ProjectsActionTypes =
 // actions
 
 function calculateScore(cr: CriterionInterface[]) {
-  console.log("calculateScore function called");
-
   return {
     type: CALCULATE_SCORE,
     payload: {

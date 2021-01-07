@@ -66,12 +66,12 @@ class App extends React.Component<Props> {
     return (
       <div id="App-wrapper">
         <div id="App-header">
-            <div id="App-title" style={{width:"1250px"}}>Issue Propagation Visualization</div>
+            <div id="App-title" style={{width:"1240px"}}>Issue Propagation Visualization</div>
             <div style={{textAlign:"end"}}>
               <Button
                 variant="outlined"
                 size="small"
-                style={{fontSize:"8px", width:"70px", whiteSpace: "normal"}}
+                style={{fontSize:"8px", width:"65px", whiteSpace: "normal"}}
                 onClick={this.onSetShowValues}
               >
                 {!this.showValues ? "SHOW VALUES" : "SHOW WEIGHTS"}
@@ -80,7 +80,7 @@ class App extends React.Component<Props> {
               <Button
                 variant="outlined"
                 size="small"
-                style={{fontSize:"8px", width:"70px", whiteSpace: "normal"}}
+                style={{fontSize:"8px", width:"65px", whiteSpace: "normal"}}
                 onClick={this.weightInference}
               >
                 WEIGHTS INFERENCE
@@ -89,7 +89,7 @@ class App extends React.Component<Props> {
               <Button
                 variant="outlined"
                 size="small"
-                style={{fontSize:"8px", width:"70px", whiteSpace: "normal"}}
+                style={{fontSize:"8px", width:"65px", whiteSpace: "normal"}}
                 onClick={this.clearInference}
               >
                 CLEAR INFERENCE

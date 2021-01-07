@@ -17,7 +17,7 @@ interface Props {
 class CriterionListContainer extends React.Component<Props> {
 
   render() {
-    console.log("CriterionListContainer", this.props);
+    // console.log("CriterionListContainer", this.props);
 
     return (
       <CriterionList
