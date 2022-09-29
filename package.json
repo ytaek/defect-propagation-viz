@@ -11,7 +11,7 @@
     "@types/react-redux": "^7.1.0",
     "@types/redux-actions": "^2.6.1",
     "bootstrap": "^4.3.1",
-    "d3": "^5.9.7",
+    "d3": "^7.6.1",
     "gh-pages": "^3.1.0",
     "react": "^16.8.6",
     "react-addons-update": "^15.6.2",
